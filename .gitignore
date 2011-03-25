@@ -1,0 +1,17 @@
+log/*.log
+log/
+config/database.yml
+tmp/**/*
+.DS_Store
+public/cache/**/*
+public/cache/
+public/system/
+public/action_cache/*/*
+doc/api
+doc/app
+db/*.sqlite3
+**/tags
+db/schema.rb
+tags
+*.swp
+.livereload

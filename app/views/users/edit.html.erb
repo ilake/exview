@@ -1,0 +1,21 @@
+<% title "Edit User" %>
+
+<%= semantic_form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% f.inputs "Basic", :id => "basic" do %>
+    <%= f.input :gender, :as => :radio, :label => "Gender", :collection => [["Male", "M"], ["Female", "F"]] %>
+    <%= f.input :speak, :hint => 'Like English, Chinese blahblah...'  %>
+    <%= f.input :memo, :input_html => { :class => 'autogrow', :rows => 10, :cols => 40, :maxlength => 10  } %>
+  <% end %>
+  <%= f.buttons :commit %>
+<% end %>

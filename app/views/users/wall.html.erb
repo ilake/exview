@@ -1,0 +1,21 @@
+<h2><%= link_to @user.name, @user%></h2>
+<h3>Receive</h3>
+<div>
+  <% @receive_photos.each do |photo|%>
+    <div>
+      From: <%= photo.sender.name %>
+      <%= link_to image_tag(photo.avatar.url(:medium)),  photo.avatar.url(:original) %>
+      <%= photo.memo %>
+    </div>
+<% end %>
+</div>
+<h3>Sent</h3>
+<div>
+  <% @sent_photos.each do |photo|%>
+    <div>
+      To : <%= photo.receiver.name %>
+      <%= link_to image_tag(photo.avatar.url(:medium)),  photo.avatar.url(:original)%>
+      <%= photo.memo %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,16 @@
+<ul>
+  <li>
+    gender: 
+    <%= @user.gender %>
+  </li>
+  <li>
+    speak: 
+    <%= @user.speak %>
+  </li>
+  <li>
+    memo: 
+    <%= @user.memo %>
+  </li>
+</ul>
+<%= link_to "#{@user.name} wall", wall_user_path(@user) %>
+<%= link_to "Share Photo with #{@user.name}", new_photo_path(:receiver_id => @user) if !owner_page?(current_user, @user)%>
