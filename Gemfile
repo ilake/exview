@@ -6,7 +6,6 @@ gem 'ruby-mysql'
 gem "paperclip", "~> 2.3"
 gem 'jquery-rails', '>= 0.2.6'
 gem 'formtastic', '~> 1.2.3'
-gem "carmen"
 
 
 # Bundle edge Rails instead:
