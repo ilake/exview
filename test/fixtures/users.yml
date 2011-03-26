@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110323064406
+# Schema version: 20110325025906
 #
 # Table name: users
 #
@@ -23,6 +23,9 @@
 #  last_login_ip       :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
+#  country_name        :string(255)
+#  quota_max           :integer(4)
+#  quota_now           :integer(4)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

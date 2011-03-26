@@ -1,16 +1,35 @@
-<ul>
-  <li>
-    gender: 
-    <%= @user.gender %>
-  </li>
-  <li>
-    speak: 
-    <%= @user.speak %>
-  </li>
-  <li>
-    memo: 
-    <%= @user.memo %>
-  </li>
-</ul>
-<%= link_to "#{@user.name} wall", wall_user_path(@user) %>
-<%= link_to "Share Photo with #{@user.name}", new_photo_path(:receiver_id => @user) if !owner_page?(current_user, @user)%>
+<% if @user.blank? %>
+  <h3>No user could be finded for you</h3>
+<% elsif @user == 'tolimit' %>
+  <h3>Sorry 以達你的配額</h3>
+<% else %>
+  <ul>
+    <li>
+      name: 
+      <%= @user.name %>
+    </li>
+    <li>
+      gender: 
+      <%= @user.gender %>
+    </li>
+    <li>
+      speak: 
+      <%= @user.speak %>
+    </li>
+    <li>
+      memo: 
+      <%= @user.memo %>
+    </li>
+    <li>
+      country: 
+      <%= @user.country_name %>
+    </li>
+    <li>
+      receive_quota_now: 
+      <%= @user.receive_quota_now %>
+    </li>
+  </ul>
+  <%= link_to "#{@user.name} wall", wall_user_path(@user) %>
+  <%= link_to "#{@user.name} assigned users", assigned_user_path(@user) if owner_page?(current_user, @user)%>
+  <%= link_to "Share Photo with #{@user.name}", new_photo_path(:receiver_id => @user) if !owner_page?(current_user, @user)%>
+<% end %>

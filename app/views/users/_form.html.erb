@@ -19,6 +19,10 @@
     <%= f.text_field :email %>
   </p>
   <p>
+      <label for="user_country_name">Country Name</label>
+      <%= country_select("user", "country_name") %>
+  </p>
+  <p>
     <%= f.label :password %><br />
     <%= f.password_field :password %>
   </p>

@@ -34,7 +34,11 @@ class UsersController < ApplicationController
 
   def wall
     @user = User.find(params[:id])
-    @receive_photos = @user.receive_photos.include_receiver
-    @sent_photos = @user.sent_photos.include_sender
+    @receive_photos = @user.receive_photos.order("created_at DESC").include_receiver
+    @sent_photos = @user.sent_photos.order("created_at DESC").include_sender
+  end
+
+  def assigned
+    @users = current_user.assigned_receivers
   end
 end

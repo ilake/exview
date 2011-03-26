@@ -41,6 +41,7 @@ class PhotosController < ApplicationController
   # POST /photos.xml
   def create
     @photo = current_user.sent_photos.new(params[:photo])
+    current_user.check_assign_and_change_quota(@photo)
 
     respond_to do |format|
       if @photo.save

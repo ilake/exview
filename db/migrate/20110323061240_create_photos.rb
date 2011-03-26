@@ -8,6 +8,9 @@ class CreatePhotos < ActiveRecord::Migration
       t.text :memo
       t.timestamps
     end
+
+    add_index :photos, :sender_id
+    add_index :photos, :receiver_id
   end
 
   def self.down

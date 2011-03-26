@@ -3,9 +3,11 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.3'
 gem 'authlogic'
 gem 'ruby-mysql'
+#gem 'mysql2'
 gem "paperclip", "~> 2.3"
 gem 'jquery-rails', '>= 0.2.6'
 gem 'formtastic', '~> 1.2.3'
+gem 'acts_as_commentable'
 
 
 # Bundle edge Rails instead:

@@ -2,11 +2,16 @@ Exview::Application.routes.draw do  resources :photos
 
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
+  match 'assign' => 'assigns#create', :as => :assign
 
   resource :user_session
   resources :users do
     member do
       get 'wall'
+    end
+
+    member do
+      get 'assigned'
     end
   end
 

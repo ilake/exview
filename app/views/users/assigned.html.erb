@@ -1,0 +1,8 @@
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= link_to user.name, user_path(user) %> |
+      <%= link_to "Share Photo with #{user.name}", new_photo_path(:receiver_id => user) %>
+    </li>
+  <% end %>
+</ul>
