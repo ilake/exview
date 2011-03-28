@@ -4,7 +4,8 @@
   <% @receive_photos.each do |photo|%>
     <div>
       From: <%= link_to photo.sender.name, user_path(photo.sender)  %>
-      <%= link_to image_tag(photo.avatar.url(:medium)),  photo.avatar.url(:original) %>
+      <%= link_to photo.comments.size, photo_path(photo) %> comments
+      <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
       <%= photo.memo %>
     </div>
 <% end %>
@@ -14,7 +15,8 @@
   <% @sent_photos.each do |photo|%>
     <div>
       To : <%= link_to photo.receiver.name, user_path(photo.receiver)%>
-      <%= link_to image_tag(photo.avatar.url(:medium)),  photo.avatar.url(:original)%>
+      <%= link_to photo.comments.size, photo_path(photo) %> comments
+      <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
       <%= photo.memo %>
     </div>
   <% end %>

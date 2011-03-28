@@ -14,6 +14,7 @@ Exview::Application.routes.draw do  resources :photos
       get 'assigned'
     end
   end
+  resources :comments, :except => [:index, :show, :edit, :update]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

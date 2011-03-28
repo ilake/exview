@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110325025906
+# Schema version: 20110327030838
 #
 # Table name: users
 #
@@ -24,8 +24,8 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  country_name        :string(255)
-#  quota_max           :integer(4)
-#  quota_now           :integer(4)
+#  send_quota_max      :integer(4)
+#  receive_quota_now   :integer(4)
 #
 
 class User < ActiveRecord::Base
@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   has_many :receive_photos, :class_name => 'Photo', :foreign_key => 'receiver_id'
   has_many :assigns, :class_name => 'Assign', :foreign_key => 'sender_id'
   has_many :assigned_receivers, :through => :assigns, :source => :receiver
+  has_many :comments
 
   before_create :init_user_quota
 

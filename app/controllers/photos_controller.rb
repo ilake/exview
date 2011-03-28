@@ -14,6 +14,8 @@ class PhotosController < ApplicationController
   # GET /photos/1.xml
   def show
     @photo = Photo.find(params[:id])
+    @comments = @photo.comments.includes(:user)
+    @comment = @photo.comments.new
 
     respond_to do |format|
       format.html # show.html.erb

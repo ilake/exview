@@ -1,15 +1,15 @@
 # == Schema Information
-# Schema version: 20110325094557
+# Schema version: 20110327030838
 #
 # Table name: assigns
 #
-#  id          :integer(4)      not null, primary key
-#  sender_id   :integer(4)
-#  receiver_id :integer(4)
-#  expire_at   :datetime
-#  sent_at     :datetime
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id           :integer(4)      not null, primary key
+#  sender_id    :integer(4)
+#  receiver_id  :integer(4)
+#  sent_at      :datetime
+#  waiting_days :integer(4)      default(7)
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
 class Assign < ActiveRecord::Base

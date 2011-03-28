@@ -11,4 +11,12 @@ module ApplicationHelper
   def owner_page?(current_user, user)
     current_user == user
   end
+
+  def link_to_user_profile(user)
+    link_to user.name, user_path(user)
+  end
+
+  def link_to_user_wall(user)
+    link_to user.name, wall_user_path(user)
+  end
 end
