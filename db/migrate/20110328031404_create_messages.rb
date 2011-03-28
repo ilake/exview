@@ -8,6 +8,9 @@ class CreateMessages < ActiveRecord::Migration
       t.datetime :read_at
       t.timestamps
     end
+
+    add_index :messages, :sender_id
+    add_index :messages, :recipient_id
   end
 
   def self.down

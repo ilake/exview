@@ -39,6 +39,6 @@ class UsersController < ApplicationController
   end
 
   def assigned
-    @users = current_user.assigned_receivers
+    @assigneds = current_user.assigns.includes(:receiver)
   end
 end

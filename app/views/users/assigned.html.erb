@@ -1,9 +1,10 @@
 <ul>
-  <% @users.each do |user| %>
+  <% @assigneds.each do |assign| %>
     <li>
-      <%= link_to user.name, user_path(user) %> |
-      <%= link_to "Share Photo with #{user.name}", new_photo_path(:receiver_id => user) %>
-      <%= link_to "Send Message to #{user.name}", new_user_message_path(current_user, :to => user.name) %>
+      <%= link_to_user_profile(assign.receiver) %>
+      <%= link_to "Share Photo with #{assign.receiver.name}", new_photo_path(:receiver_id => assign.receiver) %>
+      <%= link_to "Send Message to #{assign.receiver.name}", new_user_message_path(current_user, :to => assign.receiver.name) %>
+      <%= assign.sent_at %>
     </li>
   <% end %>
 </ul>

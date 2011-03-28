@@ -16,6 +16,8 @@ class Assign < ActiveRecord::Base
   belongs_to :sender, :class_name => 'User', :foreign_key => 'sender_id'
   belongs_to :receiver, :class_name => 'User', :foreign_key => 'receiver_id'
 
+  default_scope :order => "created_at DESC"
+
   scope :unexpired, where("waiting_days > 0")
   scope :unsent, where("sent_at is NULL")
   scope :uniq_receiver_ids, select("DISTINCT receiver_id")

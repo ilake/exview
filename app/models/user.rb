@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   scope :diff_country, lambda {|country| where("country_name not in (?)", country)}
   scope :same_country, lambda {|country| where("country_name = ?", country)}
   scope :have_quota, where("receive_quota_now > 0")
-  scope :not_assigned_or_sent, lambda{|assigned_sent_ids| where("id not in (?)", assigned_sent_ids)}
+  scope :not_assigned_or_sent_or_himeself, lambda{|assigned_sent_ids| where("id not in (?)", assigned_sent_ids)}
 
   has_many :sent_photos, :class_name => 'Photo', :foreign_key => 'sender_id'
   has_many :receive_photos, :class_name => 'Photo', :foreign_key => 'receiver_id'
@@ -58,9 +58,11 @@ class User < ActiveRecord::Base
     if self.assigns.unsent.unexpired.count < self.send_quota_max
       assigned_ids = self.assigns.uniq_receiver_ids.map{|a| a.receiver_id}
       sent_ids = self.sent_photos.uniq_receiver_ids.map{|p| p.receiver_id}
-      foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent(assigned_ids.concat(sent_ids).uniq).first(:order => 'rand()') 
+      assigned_sent_self_ids = assigned_ids.concat(sent_ids).concat([self.id]).uniq
 
-      user = foreign_friend || User.same_country(self.country_name).have_quota.not_assigned_or_sent(assigned_ids.concat(sent_ids).uniq).first(:order => 'rand()') 
+      foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_himeself(assigned_sent_self_ids).first(:order => 'rand()') 
+
+      user = foreign_friend || User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_himeself(assigned_sent_self_ids).first(:order => 'rand()') 
 
       # if user exist assign him/she to the current user
       self.assigned_receivers << user if user

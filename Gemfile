@@ -8,7 +8,7 @@ gem "paperclip", "~> 2.3"
 gem 'jquery-rails', '>= 0.2.6'
 gem 'formtastic', '~> 1.2.3'
 gem 'acts_as_commentable'
-
+gem 'whenever', :require => false
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

@@ -6,6 +6,9 @@ class CreateAssigns < ActiveRecord::Migration
       t.integer :waiting_days, :default => 7
       t.timestamps
     end
+
+    add_index :assigns, :sender_id
+    add_index :assigns, :receiver_id
   end
 
   def self.down
