@@ -14,7 +14,7 @@
       <%= link_to "Edit Profile", edit_user_path(:current) %> |
       <%= link_to "Profile", user_path(current_user) %> |
       <%= link_to "Assign Me New Friend", assign_path %> |
-      <%= link_to "MessageBox", user_messages_path(current_user) %> |
+      <%= link_to "MessageBox", user_messages_path(:current) %> |
       
       <%= current_user.name %>
       <%= link_to "Logout", logout_path %>

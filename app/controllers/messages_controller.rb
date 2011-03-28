@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  before_filter :require_user
+  
   def index
     if params[:mailbox] == "sent"
       @messages = current_user.sent_messages
