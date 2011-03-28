@@ -30,6 +30,7 @@
 
 class User < ActiveRecord::Base
   acts_as_authentic
+  has_private_messages
 
   scope :diff_country, lambda {|country| where("country_name not in (?)", country)}
   scope :same_country, lambda {|country| where("country_name = ?", country)}

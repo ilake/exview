@@ -1,0 +1,8 @@
+<% semantic_form_for @message, :url => user_messages_path(current_user) do |f| %>
+  <% f.inputs "Message" do %>
+    <%= f.hidden_field :to %>
+    <%= f.input :subject %>
+    <%= f.input :body %>
+  <% end %>
+  <%= f.buttons :commit %>
+<% end %>

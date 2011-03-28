@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110323064406
+# Schema version: 20110328031404
 #
 # Table name: photos
 #
@@ -13,6 +13,7 @@
 #  memo                :text
 #  created_at          :datetime
 #  updated_at          :datetime
+#  comments_count      :integer(4)      default(0)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

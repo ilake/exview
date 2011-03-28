@@ -8,10 +8,13 @@ Exview::Application.routes.draw do  resources :photos
   resources :users do
     member do
       get 'wall'
+      get 'assigned'
     end
 
-    member do
-      get 'assigned'
+    resources :messages do
+      collection do
+        post :delete_selected
+      end
     end
   end
   resources :comments, :except => [:index, :show, :edit, :update]
