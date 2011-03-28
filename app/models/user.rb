@@ -53,16 +53,33 @@ class User < ActiveRecord::Base
     login
   end
 
+  #Find friend policy
+  #(1)receiver have be assigned to sender could not be assigned again
+  #(2)receiver have be assigned to another one, even not active, could not assigned, either
+  #(3)[NOTICE] receiver if just ever receive the photos by sender,but dont be assigned ever, dont assigns, either 
+  #Dont use the role(3) right now, when startup, not too many users
+  
   def find_one_friend
     # if the amount of users be assigned smaller than send quota
     if self.assigns.unsent.unexpired.count < self.send_quota_max
+      #receiver have be assigned to sender could not assigned again
       assigned_ids = self.assigns.uniq_receiver_ids.map{|a| a.receiver_id}
-      sent_ids = self.sent_photos.uniq_receiver_ids.map{|p| p.receiver_id}
-      assigned_sent_self_ids = assigned_ids.concat(sent_ids).concat([self.id]).uniq
 
-      #priority foreign country > same country > ever assigned
-      user = if User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).first(:order => 'rand()')
-             elsif User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).first(:order => 'rand()')
+      #receiver have be assigned to another one, even not active, could not assigned, either
+      others_assigned_ids = Assign.unsent.unexpired.uniq_receiver_ids.map{|a| a.receiver_id}
+
+      #receiver if ever receive the photos by sender , dont assigns, either
+      #Dont use the role right now, when startup, not too many users
+      #[NOTICE]
+      #sent_ids = self.sent_photos.uniq_receiver_ids.map{|p| p.receiver_id}
+
+      assigned_sent_self_ids = assigned_ids.concat(others_assigned_ids).concat([self.id]).uniq
+
+      #priority foreign country > same country
+      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).first(:order => 'rand()')
+               foreign_friend
+             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).first(:order => 'rand()')
+               same_country_friend
              end
 
       # if user exist assign him/she to the current user
