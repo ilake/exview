@@ -1,0 +1,10 @@
+<p>
+Dear <%= @receiver.name %>
+<p>
+
+<p>
+<%= @sender.name %> has sent you a message
+
+<p>
+you could see it here
+<%= link_to 'Go to see message', user_message_url(@receiver, @msg) %>

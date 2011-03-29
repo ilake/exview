@@ -39,8 +39,8 @@ GEM
     capistrano (2.5.20)
       highline
       highline
-      net-scp (>= 1.0.0)
       net-scp
+      net-scp (>= 1.0.0)
       net-sftp
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
@@ -48,6 +48,10 @@ GEM
       net-ssh-gateway
       net-ssh-gateway (>= 1.0.0)
     columnize (0.3.2)
+    daemons (1.1.0)
+    delayed_job (2.1.4)
+      activesupport (~> 3.0)
+      daemons
     erubis (2.6.6)
       abstract (>= 1.0.0)
     formtastic (1.2.3)
@@ -129,8 +133,10 @@ DEPENDENCIES
   annotate-models (>= 1.0.4)
   authlogic
   capistrano
+  delayed_job
   formtastic (~> 1.2.3)
   jquery-rails (>= 0.2.6)
+  mail
   mocha
   nifty-generators
   paperclip (~> 2.3)

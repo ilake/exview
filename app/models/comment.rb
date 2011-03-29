@@ -29,4 +29,23 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   validates :comment, :presence => true
+
+  after_create :deliver_notification
+
+  def mail_receiver
+    #下過comment的
+    commenter_ids = Comment.find(:all, :conditions => {:commentable_id => self.commentable_id, :commentable_type => self.commentable_type}).map{|c| c.user_id}
+    #加入這筆comment 所要談論object 的擁有者
+    commenter_ids << self.commentable.sender_id
+    commenter_ids.uniq!
+    #扣掉本筆comment的擁有者
+    commenter_ids.delete(self.user_id)
+
+    users = User.find(:all, :conditions => {:id => commenter_ids})
+  end
+
+  private
+  def deliver_notification
+    Notifier.delay.comment_notification(self.mail_receiver, self)
+  end
 end

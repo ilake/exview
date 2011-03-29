@@ -29,4 +29,11 @@ class Photo < ActiveRecord::Base
   validates :memo, :presence => true, :length => { :within => 1..10000000 }
 
   has_attached_file :avatar, :styles => { :medium => "100x>100" }
+
+  after_create :deliver_notification
+
+  private
+  def deliver_notification
+    Notifier.delay.photo_notification(self, self.sender, self.receiver)
+  end
 end

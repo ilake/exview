@@ -1,0 +1,5 @@
+Dear <%= @receiver.name %>
+
+<%= @sender.name %> has sent you a message
+
+you could see it here <%= user_message_url(@receiver, @msg) %>

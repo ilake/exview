@@ -1,0 +1,10 @@
+<p>
+Dear <%= @receiver.name %>
+<p>
+
+<p>
+<%= @sender.name %> has sent you a photo
+
+<p>
+you could see it here
+<%= link_to 'Go to see photo',  photo_url(@photo) %>

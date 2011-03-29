@@ -1,0 +1,7 @@
+<p>
+  <%= @comment.comment %>
+</p>
+
+<p>
+  you could <%= link_to 'see it here', polymorphic_url(@comment.commentable) %>
+</p>
