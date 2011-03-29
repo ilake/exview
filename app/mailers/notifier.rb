@@ -1,5 +1,4 @@
 class Notifier < ActionMailer::Base
-  default :from => APP_CONFIG["mail_from"]
 
   def registration_confirmation(user)
     @account = user
