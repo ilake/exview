@@ -58,7 +58,6 @@ class User < ActiveRecord::Base
   #(2)receiver have be assigned to another one, even not active, could not assigned, either
   #(3)[NOTICE] receiver if just ever receive the photos by sender,but dont be assigned ever, dont assigns, either 
   #Dont use the role(3) right now, when startup, not too many users
-  
   def find_one_friend
     # if the amount of users be assigned smaller than send quota
     if self.assigns.unsent.unexpired.count < self.send_quota_max
@@ -100,6 +99,14 @@ class User < ActiveRecord::Base
       User.decrement_counter(:receive_quota_now, photo.receiver_id)
     end
   end
+
+  #You could only share photos with some guy has been assigned to you or yourself ever be assigned to him
+  def share_photo_permission(receiver)
+    Assign.exists?(["(sender_id = ? AND receiver_id = ?) or (sender_id = ? AND receiver_id = ?)", self.id, receiver.id, receiver.id, self.id ])
+  end
+
+  #[TODO]
+  #Maybe we could have one way to manual add special assigned user via email or a friend request confirmation
 
   private
   def init_user_quota
