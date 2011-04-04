@@ -80,9 +80,9 @@ class User < ActiveRecord::Base
       assigned_sent_self_ids = assigned_ids.concat(others_assigned_ids).concat([self.id]).uniq
 
       #priority foreign country > same country
-      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).order("last_login_at DESC").first
+      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).where("last_login_at is not NULL").order("last_login_at DESC").first
                foreign_friend
-             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).order("last_login_at DESC").first
+             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).where("last_login_at is not NULL").order("last_login_at DESC").first
                same_country_friend
              end
 
