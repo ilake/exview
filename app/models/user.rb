@@ -28,6 +28,11 @@
 #  receive_quota_now   :integer(4)
 #
 
+#== Columns description ==
+# country_name :  the country you live
+# hometown_country : your hometown country
+#== Columns description END ==
+
 class User < ActiveRecord::Base
   acts_as_authentic
   has_private_messages
@@ -35,7 +40,7 @@ class User < ActiveRecord::Base
   scope :diff_country, lambda {|country| where("country_name not in (?)", country)}
   scope :same_country, lambda {|country| where("country_name = ?", country)}
   scope :have_quota, where("receive_quota_now > 0")
-  scope :not_assigned_or_sent_or_self, lambda{|assigned_sent_ids| where("id not in (?)", assigned_sent_ids)}
+  scope :not_assigned_or_sent_or_self, lambda{|assigned_sent_ids| where("#{table_name}.id not in (?)", assigned_sent_ids)}
 
   has_many :sent_photos, :class_name => 'Photo', :foreign_key => 'sender_id'
   has_many :receive_photos, :class_name => 'Photo', :foreign_key => 'receiver_id'
@@ -75,9 +80,9 @@ class User < ActiveRecord::Base
       assigned_sent_self_ids = assigned_ids.concat(others_assigned_ids).concat([self.id]).uniq
 
       #priority foreign country > same country
-      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).first(:order => 'rand()')
+      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).order("last_login_at DESC").first
                foreign_friend
-             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).first(:order => 'rand()')
+             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).order("last_login_at DESC").first
                same_country_friend
              end
 
@@ -104,6 +109,7 @@ class User < ActiveRecord::Base
   def share_photo_permission(receiver)
     Assign.exists?(["(sender_id = ? AND receiver_id = ?) or (sender_id = ? AND receiver_id = ?)", self.id, receiver.id, receiver.id, self.id ])
   end
+
 
   #[TODO]
   #Maybe we could have one way to manual add special assigned user via email or a friend request confirmation

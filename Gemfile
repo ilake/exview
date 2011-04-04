@@ -1,9 +1,6 @@
 source 'http://rubygems.org'
-
 gem 'rails', '3.0.3'
 gem 'authlogic'
-gem 'ruby-mysql'
-#gem 'mysql2'
 gem "paperclip", "~> 2.3"
 gem 'jquery-rails', '>= 0.2.6'
 gem 'formtastic', '~> 1.2.3'
@@ -16,12 +13,17 @@ gem "mail"
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development do
+  gem 'ruby-mysql'
   gem 'ruby-debug19'
   gem 'annotate-models', '>= 1.0.4'
   gem "rails3-generators"
   gem "nifty-generators"
   # Deploy with Capistrano
   gem 'capistrano'
+end
+
+group :production do
+  gem 'mysql2'
 end
 
 # Use unicorn as the web server
