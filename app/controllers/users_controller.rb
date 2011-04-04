@@ -10,8 +10,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save
-      flash[:notice] = "Successfully created user."
+
+    if @user.save_without_session_maintenance
+      @user.deliver_activation_instructions!
+      flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
       redirect_back_or_default root_path
     else
       render :action => 'new'
@@ -41,4 +43,16 @@ class UsersController < ApplicationController
   def assigned
     @assigneds = current_user.assigns.includes(:receiver)
   end
+
+  def resend_activation
+    if params[:login]
+      @user = User.find_by_login params[:login]
+      if @user && !@user.active?
+        @user.deliver_activation_instructions!
+        flash[:notice] = "Please check your e-mail for your account activation instructions!"
+        redirect_to root_path
+      end
+    end
+  end
+
 end

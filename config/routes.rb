@@ -3,12 +3,17 @@ Exview::Application.routes.draw do  resources :photos
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
   match 'assign' => 'assigns#create', :as => :assign
+  match '/activate/:activation_code' => 'activations#create', :as => :activate
 
   resource :user_session
   resources :users do
     member do
       get 'wall'
       get 'assigned'
+    end
+
+    collection do
+      get 'resend_activation'
     end
 
     resources :messages do

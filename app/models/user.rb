@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110327030838
+# Schema version: 20110404042843
 #
 # Table name: users
 #
@@ -26,6 +26,7 @@
 #  country_name        :string(255)
 #  send_quota_max      :integer(4)
 #  receive_quota_now   :integer(4)
+#  active              :boolean(1)
 #
 
 #== Columns description ==
@@ -35,6 +36,8 @@
 
 class User < ActiveRecord::Base
   acts_as_authentic
+  attr_accessible :login, :email, :password, :password_confirmation, :openid_identifier
+
   has_private_messages
 
   scope :diff_country, lambda {|country| where("country_name not in (?)", country)}
@@ -110,6 +113,20 @@ class User < ActiveRecord::Base
     Assign.exists?(["(sender_id = ? AND receiver_id = ?) or (sender_id = ? AND receiver_id = ?)", self.id, receiver.id, receiver.id, self.id ])
   end
 
+  def deliver_activation_instructions!
+    reset_perishable_token!
+    Notifier.activation_instructions(self).deliver
+  end
+
+  def deliver_welcome!
+    reset_perishable_token!
+    Notifier.registration_confirmation(self).deliver
+  end
+
+  def activate!
+    self.active = true
+    save
+  end
 
   #[TODO]
   #Maybe we could have one way to manual add special assigned user via email or a friend request confirmation

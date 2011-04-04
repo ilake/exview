@@ -1,8 +1,14 @@
 class Notifier < ActionMailer::Base
 
+  #be sent after the user is actived
   def registration_confirmation(user)
     @account = user
-    mail(:to => named_email(user), :subject => "Registered")
+    mail(:to => named_email(user), :subject => "Welcome")
+  end
+
+  def activation_instructions(user)
+    @account_activation_url = activate_url(user.perishable_token)
+    mail(:to => named_email(user), :subject => "Activation Instructions")
   end
 
   def photo_notification(param_photo, param_sender, param_receiver)

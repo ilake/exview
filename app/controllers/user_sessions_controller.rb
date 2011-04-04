@@ -17,15 +17,15 @@ class UserSessionsController < ApplicationController
   # POST /user_sessions.xml
   def create
     @user_session = UserSession.new(params[:user_session])
-
-    respond_to do |format|
-      if @user_session.save
-        format.html { redirect_to(root_url, :notice => 'Login successfully') }
-        format.xml  { render :xml => @user_session, :status => :created, :location => @user_session }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @user_session.errors, :status => :unprocessable_entity }
-      end
+    if @user_session.save
+      redirect_back_or_default root_path
+    elsif @user_session.attempted_record &&
+      !@user_session.invalid_password? &&
+      !@user_session.attempted_record.active?
+      flash[:alert] = render_to_string(:partial => 'user_sessions/not_active.erb', :locals => { :user => @user_session.attempted_record })
+      redirect_to :action => :new
+    else
+      render :action => :new
     end
   end
 
