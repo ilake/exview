@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     login
   end
 
+  def self.find_by_login_or_email(login)
+    find_by_login(login) || find_by_email(login)
+  end
+
   #Find friend policy
   #(1)receiver have be assigned to sender could not be assigned again
   #(2)receiver have be assigned to another one, even not active, could not assigned, either
