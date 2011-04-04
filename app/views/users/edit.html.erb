@@ -17,8 +17,12 @@
     <%= f.input :speak, :hint => 'Like English, Chinese blahblah...'  %>
     <%= f.input :memo, :input_html => { :class => 'autogrow', :rows => 10, :cols => 40, :maxlength => 10  } %>
     <li id="user_country_name_input" class="text optional">
-      <label for="user_country_name">Country Name</label>
+      <label for="user_country_name">Living Country Name</label>
       <%= country_select("user", "country_name") %>
+    </li>
+    <li id="user_hometown_country_name_input" class="text optional">
+      <label for="user_hometown_country_name">Hometown Country Name</label>
+      <%= country_select("user", "hometown_country_name") %>
     </li>
   <% end %>
   <%= f.buttons :commit %>

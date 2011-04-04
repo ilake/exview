@@ -1,43 +1,42 @@
 # == Schema Information
-# Schema version: 20110404042843
+# Schema version: 20110404075636
 #
 # Table name: users
 #
-#  id                  :integer(4)      not null, primary key
-#  login               :string(255)     not null
-#  email               :string(255)     not null
-#  gender              :string(255)
-#  speak               :string(255)
-#  memo                :text
-#  crypted_password    :string(255)     not null
-#  password_salt       :string(255)     not null
-#  persistence_token   :string(255)     not null
-#  single_access_token :string(255)     not null
-#  perishable_token    :string(255)     not null
-#  login_count         :integer(4)      default(0), not null
-#  failed_login_count  :integer(4)      default(0), not null
-#  last_request_at     :datetime
-#  current_login_at    :datetime
-#  last_login_at       :datetime
-#  current_login_ip    :string(255)
-#  last_login_ip       :string(255)
-#  created_at          :datetime
-#  updated_at          :datetime
-#  country_name        :string(255)
-#  send_quota_max      :integer(4)
-#  receive_quota_now   :integer(4)
-#  active              :boolean(1)
+#  id                    :integer(4)      not null, primary key
+#  login                 :string(255)     not null
+#  email                 :string(255)     not null
+#  gender                :string(255)
+#  speak                 :string(255)
+#  memo                  :text
+#  crypted_password      :string(255)     not null
+#  password_salt         :string(255)     not null
+#  persistence_token     :string(255)     not null
+#  single_access_token   :string(255)     not null
+#  perishable_token      :string(255)     not null
+#  login_count           :integer(4)      default(0), not null
+#  failed_login_count    :integer(4)      default(0), not null
+#  last_request_at       :datetime
+#  current_login_at      :datetime
+#  last_login_at         :datetime
+#  current_login_ip      :string(255)
+#  last_login_ip         :string(255)
+#  created_at            :datetime
+#  updated_at            :datetime
+#  country_name          :string(255)
+#  send_quota_max        :integer(4)
+#  receive_quota_now     :integer(4)
+#  active                :boolean(1)
+#  hometown_country_name :string(255)
 #
 
 #== Columns description ==
-# country_name :  the country you live
+# country_name :  the country you are living
 # hometown_country : your hometown country
 #== Columns description END ==
 
 class User < ActiveRecord::Base
   acts_as_authentic
-  attr_accessible :login, :email, :password, :password_confirmation, :openid_identifier
-
   has_private_messages
 
   scope :diff_country, lambda {|country| where("country_name not in (?)", country)}
