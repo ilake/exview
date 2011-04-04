@@ -1,5 +1,10 @@
 class Notifier < ActionMailer::Base
 
+  def password_reset_instructions(user)
+    @edit_password_reset_url = edit_password_reset_url(user.perishable_token)
+    mail(:to => named_email(user), :subject => "Password Reset Instructions")
+  end
+
   #be sent after the user is actived
   def registration_confirmation(user)
     @account = user

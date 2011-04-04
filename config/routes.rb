@@ -5,6 +5,7 @@ Exview::Application.routes.draw do  resources :photos
   match 'assign' => 'assigns#create', :as => :assign
   match '/activate/:activation_code' => 'activations#create', :as => :activate
 
+  resources :password_resets, :only => [ :new, :create, :edit, :update ]
   resource :user_session
   resources :users do
     member do

@@ -1,4 +1,4 @@
-#flash_notice { 
+#flash_notice, #flash_success { 
   font-size: 13px;
   background-color: #CFC;
   border: solid 1px #6C6;

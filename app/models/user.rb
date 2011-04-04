@@ -128,6 +128,11 @@ class User < ActiveRecord::Base
     save
   end
 
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    Notifier.password_reset_instructions(self).deliver
+  end
+
   #[TODO]
   #Maybe we could have one way to manual add special assigned user via email or a friend request confirmation
 
