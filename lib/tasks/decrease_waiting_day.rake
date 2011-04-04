@@ -4,6 +4,7 @@ namespace :daily do
     Assign.transaction do
       Assign.unexpired.unsent.each do |a|
         Assign.decrement_counter(:waiting_days, a.id)
+        a.destroy if a.waiting_days.zero?
       end
     end
   end
