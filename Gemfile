@@ -9,6 +9,7 @@ gem 'whenever', :require => false
 gem 'delayed_job'
 gem "mail"
 gem "delayed_job_admin"
+gem "hoptoad_notifier", "~> 2.3"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
