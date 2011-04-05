@@ -2,10 +2,7 @@
 <html>
 <head>
   <title>Exview</title>
-  <%= stylesheet_link_tag :all %>
-  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
-  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" %>
-  <%= javascript_include_tag 'rails', "application.js" %>
+  <%= stylesheet_link_tag 'application', 'scaffold', 'formtastic', 'formtastic_changes', :cache => true %>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -26,7 +23,10 @@
   <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, :id => "flash_#{name}" %>
   <% end %>
-<%= yield %>
+  <%= yield %>
+
+  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" %>
+  <%= javascript_include_tag 'rails', "application.js", :cache => true %>
 
 </body>
 </html>
