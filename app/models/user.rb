@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110404075636
+# Schema version: 20110404101637
 #
 # Table name: users
 #
@@ -28,11 +28,13 @@
 #  receive_quota_now     :integer(4)
 #  active                :boolean(1)
 #  hometown_country_name :string(255)
+#  sent_countries        :text
 #
 
 #== Columns description ==
 # country_name :  the country you are living
 # hometown_country : your hometown country
+# sent_countries : the countries you ever shared photos , This is a pipe-separated list of countries or states 
 #== Columns description END ==
 
 class User < ActiveRecord::Base
@@ -104,10 +106,24 @@ class User < ActiveRecord::Base
     #if this photo is for assigned job, check it and change quota
     if assigned = self.assigns.unexpired.unsent.where(:receiver_id => photo.receiver_id).first
       assigned.update_attributes(:sent_at => Time.now, :waiting_days => 0)
+
       #Sender increase one quota
       User.increment_counter(:receive_quota_now, self.id)
+
       #Receiver decrease one quota
       User.decrement_counter(:receive_quota_now, photo.receiver_id)
+
+      #Add the unique receive countries to sent_countries
+      receiver_country_name = photo.receiver.country_name
+      if self.sent_countries 
+        if !self.sent_countries.match(receiver_country_name)
+          self.sent_countries = "#{self.sent_countries}|#{receiver_country_name}"
+          self.save
+        end
+      else
+        self.sent_countries = "#{receiver_country_name}"
+        self.save
+      end
     end
   end
 

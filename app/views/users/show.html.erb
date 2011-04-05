@@ -22,7 +22,7 @@
     </li>
     <li>
       country: 
-      <%= @user.country_name %>
+      <%= human_country_name(@user.country_name) %>
     </li>
     <li>
       receive_quota_now: 
@@ -37,4 +37,4 @@
   <% end %>
 <% end %>
 <h3>Friends Countries Map</h3>
-<%= image_tag "http://chart.apis.google.com/chart?cht=map:fixed=-60,180,80,179&chs=600x360&chld=TW|JP|CN|US&chco=dbe1bf|ff0085|ff0085&chf=bg,s,99b3cc" %>
+<%= google_map_chart(@user.sent_countries) %>

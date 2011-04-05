@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110404075636
+# Schema version: 20110404101637
 #
 # Table name: users
 #
@@ -28,6 +28,7 @@
 #  receive_quota_now     :integer(4)
 #  active                :boolean(1)
 #  hometown_country_name :string(255)
+#  sent_countries        :text
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

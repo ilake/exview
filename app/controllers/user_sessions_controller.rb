@@ -18,7 +18,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      redirect_back_or_default root_path
+      redirect_to root_path
     elsif @user_session.attempted_record &&
       !@user_session.invalid_password? &&
       !@user_session.attempted_record.active?
