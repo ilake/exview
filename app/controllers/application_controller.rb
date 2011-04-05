@@ -34,6 +34,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def delayed_job_admin_authentication
+    # authentication_logic_goes_here
+    unless current_user.login == APP_CONFIG["admin_name"]
+      redirect_to root_path
+    end
+  end
+
   def store_location
     session[:return_to] = request.request_uri
   end

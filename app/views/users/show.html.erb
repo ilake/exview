@@ -35,6 +35,6 @@
     <%= link_to "Share Photo with #{@user.name}", new_photo_path(:receiver_id => @user) if current_user.share_photo_permission(@user) %>
     <%= link_to "Send Message to #{@user.name}", new_user_message_path(current_user, :to => @user.name) %>
   <% end %>
+  <h3>Friends Countries Map</h3>
+  <%= google_map_chart(@user) %>
 <% end %>
-<h3>Friends Countries Map</h3>
-<%= google_map_chart(@user.sent_countries) %>

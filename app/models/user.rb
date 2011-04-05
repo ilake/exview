@@ -157,8 +157,9 @@ class User < ActiveRecord::Base
 
   private
   def init_user_quota
-    self.send_quota_max = 3
-    self.receive_quota_now = 1
+    self.send_quota_max = 3 unless self.send_quota_max
+    self.receive_quota_now = 1 unless self.receive_quota_now
+    self.sent_countries = "" unless self.sent_countries
   end
 
 end

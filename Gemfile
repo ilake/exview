@@ -8,6 +8,7 @@ gem 'acts_as_commentable'
 gem 'whenever', :require => false
 gem 'delayed_job'
 gem "mail"
+gem "delayed_job_admin"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

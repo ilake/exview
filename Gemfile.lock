@@ -39,8 +39,8 @@ GEM
     capistrano (2.5.20)
       highline
       highline
-      net-scp (>= 1.0.0)
       net-scp
+      net-scp (>= 1.0.0)
       net-sftp
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
@@ -52,6 +52,9 @@ GEM
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
+    delayed_job_admin (1.0.2)
+      delayed_job
+      rails
     erubis (2.6.6)
       abstract (>= 1.0.0)
     formtastic (1.2.3)
@@ -135,6 +138,7 @@ DEPENDENCIES
   authlogic
   capistrano
   delayed_job
+  delayed_job_admin
   formtastic (~> 1.2.3)
   jquery-rails (>= 0.2.6)
   mail
