@@ -25,6 +25,7 @@ class CreateUsers < ActiveRecord::Migration
     end
 
     add_index :users, :perishable_token
+    add_index :users, :last_login_at
   end
 
   def self.down

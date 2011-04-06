@@ -3,6 +3,7 @@ class AddCountryNameToUser < ActiveRecord::Migration
     add_column :users, :country_name, :string
     add_column :users, :send_quota_max, :integer
     add_column :users, :receive_quota_now, :integer
+    add_index :users, :country_name
   end
 
   def self.down
