@@ -42,9 +42,11 @@ class User < ActiveRecord::Base
   has_private_messages
 
   scope :diff_country, lambda {|country| where("country_name not in (?)", country)}
+  scope :diff_hometown, lambda {|country| where("hometown_country_name not in (?)", country)}
   scope :same_country, lambda {|country| where("country_name = ?", country)}
   scope :have_quota, where("receive_quota_now > 0")
   scope :not_assigned_or_sent_or_self, lambda{|assigned_sent_ids| where("#{table_name}.id not in (?)", assigned_sent_ids)}
+  scope :login_recently, where("last_login_at is not NULL").order("last_login_at DESC")
 
   has_many :sent_photos, :class_name => 'Photo', :foreign_key => 'sender_id'
   has_many :receive_photos, :class_name => 'Photo', :foreign_key => 'receiver_id'
@@ -87,10 +89,12 @@ class User < ActiveRecord::Base
 
       assigned_sent_self_ids = assigned_ids.concat(others_assigned_ids).concat([self.id]).uniq
 
-      #priority foreign country > same country
-      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).where("last_login_at is not NULL").order("last_login_at DESC").first
+      #Assigned priority foreign country(living) > same_country(but diffrent hometown) > same country(living)
+      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).login_recently.first
                foreign_friend
-             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).where("last_login_at is not NULL").order("last_login_at DESC").first
+             elsif foreign_friend_in_your_country = User.diff_hometown(self.hometown_country_name).same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).login_recently.first
+               foreign_friend_in_your_country
+             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).login_recently.first
                same_country_friend
              end
 
