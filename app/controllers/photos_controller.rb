@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_filter :find_photo, :only => [:show, :edit, :update, :destroy]
   # GET /photos
   # GET /photos.xml
   def index
@@ -75,12 +76,16 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.xml
   def destroy
-    @photo = Photo.find(params[:id])
     @photo.destroy
 
     respond_to do |format|
       format.html { redirect_to(photos_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+  def find_photo
+    @photo = Photo.find(params[:id])
   end
 end

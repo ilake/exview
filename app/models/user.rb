@@ -165,5 +165,4 @@ class User < ActiveRecord::Base
     self.receive_quota_now = 1 unless self.receive_quota_now
     self.sent_countries = "" unless self.sent_countries
   end
-
 end

@@ -11,6 +11,7 @@ class CreatePhotos < ActiveRecord::Migration
 
     add_index :photos, :sender_id
     add_index :photos, :receiver_id
+    add_index :photos, :avatar_content_type
   end
 
   def self.down

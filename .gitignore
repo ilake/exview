@@ -3,6 +3,7 @@ log/
 config/database.yml
 config/app_config.yml
 tmp/**/*
+tmp/
 .DS_Store
 public/cache/**/*
 public/cache/
