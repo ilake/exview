@@ -14,8 +14,8 @@ gem "hoptoad_notifier", "~> 2.3"
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'ruby-mysql'
 group :development do
-  gem 'ruby-mysql'
   gem 'ruby-debug19'
   gem 'annotate-models', '>= 1.0.4'
   gem "rails3-generators"
@@ -24,9 +24,9 @@ group :development do
   gem 'capistrano'
 end
 
-group :production do
-  gem 'mysql2'
-end
+#group :production do
+#  gem 'mysql2'
+#end
 
 # Use unicorn as the web server
 # gem 'unicorn'
