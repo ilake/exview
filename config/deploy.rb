@@ -10,10 +10,11 @@ on :load do
 end
 
 ssh_options[:forward_agent] = true
-set :repository, "git@github.com:account/repo_name.git"
+set :repository, "git@github.com:ilake/exview.git"
 set :scm, "git"
 set :deploy_via, :remote_cache
-set :branch, 'master'
+set :branch, 'ec2'
+
 
 
 # Use a simple directory tree copy here to make demo easier.
@@ -61,3 +62,21 @@ Dir["#{File.dirname(__FILE__)}/rubber/deploy-*.rb"].each do |deploy_file|
 end
 
 after "deploy", "deploy:cleanup"
+
+after "deploy:setup", "share_folder_setup"
+after "deploy:update_code", "upload_settings"
+
+desc "Create the app-specific folders in shared"
+task :share_folder_setup, :roles => :app do
+  run "cd #{shared_path}; if [ ! -d 'config' ]; then mkdir -p config; fi;"
+  run "cd #{shared_path}; if [ ! -d 'tmp/pids' ]; then mkdir -p tmp/pids; fi;"
+  run "cd #{shared_path}; if [ ! -d 'tmp/sockets' ]; then mkdir -p tmp/sockets; fi;"
+end
+
+desc "Upload the specific setting file"
+task :upload_settings, :roles => :app do
+  %w(app_config.yml).each do |file|
+    system "scp -i #{rubber_env.cloud_providers.aws.key_file} config/#{file} #{rubber_env.app_user}@#{rails_env}.#{rubber_env.domain}:#{deploy_to}/shared/config/ "
+    run "ln -s #{shared_path}/config/#{file} #{current_release}/config/#{file}" # create a symlink to curren
+  end
+end

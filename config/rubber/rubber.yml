@@ -14,7 +14,7 @@
 app_name: exview
 
 # REQUIRED: The system user to run your app servers as
-app_user: ec2-user
+app_user: root
 
 # REQUIRED: Notification emails (e.g. monit) get sent to this address
 #
@@ -62,9 +62,9 @@ cloud_providers:
     # public key from the private key: ssh-keygen -y -f gsg-keypair > gsg-keypair.pub
     # Ex: ssh-keygen -y -f exviewkey.pem > exviewkey.pub
     key_name: exviewkey
-    key_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/Downloads/amazon/exview/*'].first}"
+    key_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/*' + cloud_providers.aws.key_name].first}"
     #key_name: gsg-keypair
-    #key_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/*' + cloud_providers.aws.key_name].first}"
+    #key_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/Downloads/amazon/exview/*'].first}"
 
     # OPTIONAL: Needed for bundling a running instance using rubber:bundle
     #
