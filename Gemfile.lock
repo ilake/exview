@@ -82,7 +82,6 @@ GEM
     mocha (0.9.12)
     mumboe-soap4r (1.5.8.3)
       httpclient (>= 2.1.1)
-    mysql2 (0.2.7)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -158,7 +157,6 @@ DEPENDENCIES
   jquery-rails (>= 0.2.6)
   mail
   mocha
-  mysql2
   nifty-generators
   paperclip (~> 2.3)
   rails (= 3.0.3)
