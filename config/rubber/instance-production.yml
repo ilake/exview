@@ -1,44 +1,44 @@
----
-- !ruby/object:Rubber::Configuration::InstanceItem
+--- 
+- !ruby/object:Rubber::Configuration::InstanceItem 
   domain: iwakela.com
-  external_host: ec2-50-16-10-16.compute-1.amazonaws.com
-  external_ip: 50.16.10.16
-  instance_id: i-58e69e37
-  internal_host: ip-10-202-67-125.ec2.internal
-  internal_ip: 10.202.67.125
+  external_host: ec2-50-17-41-6.compute-1.amazonaws.com
+  external_ip: 50.17.41.6
+  instance_id: i-aa97d1c5
+  internal_host: ip-10-194-206-244.ec2.internal
+  internal_ip: 10.194.206.244
   name: production
   platform: linux
-  roles:
-  - !ruby/object:Rubber::Configuration::RoleItem
+  roles: 
+  - !ruby/object:Rubber::Configuration::RoleItem 
     name: web
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem
+  - !ruby/object:Rubber::Configuration::RoleItem 
     name: haproxy
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem
+  - !ruby/object:Rubber::Configuration::RoleItem 
     name: app
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem
+  - !ruby/object:Rubber::Configuration::RoleItem 
     name: passenger
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem
+  - !ruby/object:Rubber::Configuration::RoleItem 
     name: apache
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem
+  - !ruby/object:Rubber::Configuration::RoleItem 
     name: db
-    options:
+    options: 
       primary: true
-  - !ruby/object:Rubber::Configuration::RoleItem
+  - !ruby/object:Rubber::Configuration::RoleItem 
     name: mysql_master
     options: {}
 
   root_device_type: ebs
-  security_groups:
+  security_groups: 
   - exview_production_default
   - exview_production_web
   - exview_production_production

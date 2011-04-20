@@ -36,7 +36,7 @@ class Notifier < ActionMailer::Base
   end
 
   private
-  def named_email(user) 
-    "#{user.name} <#{user.email}>" 
+  def named_email(user)
+    "#{user.name} <#{user.email}>"
   end
 end
