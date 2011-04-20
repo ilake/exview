@@ -10,10 +10,19 @@ on :load do
 end
 
 ssh_options[:forward_agent] = true
-set :repository, "git@github.com:ilake/exview.git"
-set :scm, "git"
-set :deploy_via, :remote_cache
-set :branch, 'ec2'
+
+if RUBBER_ENV == 'production'
+  set :repository, "git@github.com:ilake/exview.git"
+  set :scm, "git"
+  set :deploy_via, :remote_cache
+  set :branch, 'ec2'
+else
+  set :scm, :none
+  set :repository, "."
+  set :deploy_via, :copy
+  set :copy_exclude, [".git/*", "log/*"]
+  set :copy_compression, :zip
+end
 
 
 
@@ -62,21 +71,75 @@ Dir["#{File.dirname(__FILE__)}/rubber/deploy-*.rb"].each do |deploy_file|
 end
 
 after "deploy", "deploy:cleanup"
+after "deploy", "deploy:db_seed"
+after "deploy:setup", "deploy:share_folder_setup"
+after "deploy:update_code", "deploy:upload_settings"
+after "deploy:update_code", "deploy:chown"
 
-after "deploy:setup", "share_folder_setup"
-after "deploy:update_code", "upload_settings"
+namespace :deploy do
+  desc "Run rake db:seed on production machine"
+  task :db_seed, :roles => :app  do
+    run "cd #{current_path}; rake RAILS_ENV=#{rails_env} db:seed"
+  end
 
-desc "Create the app-specific folders in shared"
-task :share_folder_setup, :roles => :app do
-  run "cd #{shared_path}; if [ ! -d 'config' ]; then mkdir -p config; fi;"
-  run "cd #{shared_path}; if [ ! -d 'tmp/pids' ]; then mkdir -p tmp/pids; fi;"
-  run "cd #{shared_path}; if [ ! -d 'tmp/sockets' ]; then mkdir -p tmp/sockets; fi;"
+  desc "Create the app-specific folders in shared"
+  task :share_folder_setup, :roles => :app do
+    run "cd #{shared_path}; if [ ! -d 'config' ]; then mkdir -p config; fi;"
+    run "cd #{shared_path}; if [ ! -d 'tmp/pids' ]; then mkdir -p tmp/pids; fi;"
+    run "cd #{shared_path}; if [ ! -d 'tmp/sockets' ]; then mkdir -p tmp/sockets; fi;"
+  end
+
+  desc "Upload the specific setting file"
+  task :upload_settings, :roles => :app do
+    %w(app_config.yml).each do |file|
+      upload_file(file)
+    end
+  end
+
+  desc "Reupload the specific setting file"
+  task :reupload_settings, :roles => :app do
+    %w(app_config.yml).each do |file|
+      sudo "rm #{shared_path}/config/#{file} #{current_release}/config/#{file}"
+      upload_file(file)
+    end
+  end
+
+  desc "Change the project owner"
+  task :chown, :roles => :app do
+    run "cd #{shared_path} && chown www-data #{shared_path} -R;"
+    run "cd #{latest_release} && chown www-data #{latest_release} -R;"
+  end
 end
 
-desc "Upload the specific setting file"
-task :upload_settings, :roles => :app do
-  %w(app_config.yml).each do |file|
-    system "scp -i #{rubber_env.cloud_providers.aws.key_file} config/#{file} #{rubber_env.app_user}@#{rails_env}.#{rubber_env.domain}:#{deploy_to}/shared/config/ "
-    run "ln -s #{shared_path}/config/#{file} #{current_release}/config/#{file}" # create a symlink to curren
+
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
+
+namespace :delayed_job do
+  desc "Start delayed_job process"
+  task :start, :roles => :app do
+    run "cd #{current_path}; ruby script/delayed_job start -- #{rails_env}"
   end
+
+  desc "Stop delayed_job process"
+  task :stop, :roles => :app do
+    run "cd #{current_path}; script/delayed_job stop -- #{rails_env}"
+  end
+
+  desc "Restart the delayed_job process"
+  task :restart, :roles => :app do
+    stop
+    wait_for_process_to_end("delayed_job")
+    start
+  end
+end
+
+def wait_for_process_to_end(process_name)
+  run "COUNT=1; until [ $COUNT -eq 0 ]; do COUNT=`ps -ef | grep -v 'ps -ef' | grep -v 'grep' | grep -i '#{process_name}'|wc -l` ; echo 'waiting for #{process_name} to end' ; sleep 2 ; done"
+end
+
+def upload_file(file)
+  system "scp -i #{rubber_env.cloud_providers.aws.key_file} config/#{file} #{user}@#{rails_env}.#{rubber_env.domain}:#{deploy_to}/shared/config/ "
+  sudo "ln -s #{shared_path}/config/#{file} #{current_release}/config/#{file}" # create a symlink to curren
 end

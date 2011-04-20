@@ -1,11 +1,11 @@
 --- 
 - !ruby/object:Rubber::Configuration::InstanceItem 
   domain: iwakela.com
-  external_host: ec2-50-17-41-6.compute-1.amazonaws.com
-  external_ip: 50.17.41.6
-  instance_id: i-aa97d1c5
-  internal_host: ip-10-194-206-244.ec2.internal
-  internal_ip: 10.194.206.244
+  external_host: ec2-75-101-241-66.compute-1.amazonaws.com
+  external_ip: 75.101.241.66
+  instance_id: i-008ecc6f
+  internal_host: ip-10-242-83-105.ec2.internal
+  internal_ip: 10.242.83.105
   name: production
   platform: linux
   roles: 
