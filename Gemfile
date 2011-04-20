@@ -49,4 +49,4 @@ end
 #   gem 'webrat'
 # end
 gem "mocha", :group => :test
-gem "rubber", "1.12.2"
+gem "rubber"
