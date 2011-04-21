@@ -98,7 +98,7 @@ cloud_providers:
     # m1.small or m1.large or m1.xlarge
     # [==MODIFIED==START]
     image_type: t1.micro
-    image_id: 'ami-3e02f257'
+    image_id: 'ami-ebbfefae'
     # [==MODIFIED==END]
     #image_type: m1.small
     #image_id: "#{ %w{m1.small c1.medium}.include?(image_type) ? 'ami-7000f019' : 'ami-fa01f193' }"
