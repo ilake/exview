@@ -1,0 +1,13 @@
+common: &default_settings
+  access_key_id: AKIAJZLWPTDVMHBLG4EQ
+  secret_access_key: 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
+  bucket: exview-images
+
+development:
+  <<: *default_settings
+
+test:
+  <<: *default_settings
+
+production:
+  <<: *default_settings

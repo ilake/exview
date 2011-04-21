@@ -50,3 +50,4 @@ end
 # end
 gem "mocha", :group => :test
 gem "rubber"
+gem 'aws-s3'

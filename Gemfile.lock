@@ -149,6 +149,7 @@ DEPENDENCIES
   acts_as_commentable
   annotate-models (>= 1.0.4)
   authlogic
+  aws-s3
   capistrano
   delayed_job
   delayed_job_admin

@@ -28,7 +28,12 @@ class Photo < ActiveRecord::Base
 
   validates :memo, :presence => true, :length => { :within => 1..10000000 }
 
-  has_attached_file :avatar, :styles => { :medium => "100x>100" }
+  has_attached_file :avatar,
+    #:styles => { :thumb => "100x100#", :small  => "400x400>" },
+    :styles => { :medium => "100x>100" },
+    :storage => :s3,
+    :s3_credentials => "#{Rails.root}/config/s3.yml",
+    :path => ":attachment/:id/:style.:extension"
 
   after_create :deliver_notification
 
