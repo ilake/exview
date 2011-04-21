@@ -2,7 +2,6 @@ log/*.log
 log/
 config/database.yml
 config/app_config.yml
-config/rubber/instance-production.yml
 tmp/**/*
 tmp/
 .DS_Store

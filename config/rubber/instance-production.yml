@@ -1,0 +1,55 @@
+--- 
+- !ruby/object:Rubber::Configuration::InstanceItem 
+  domain: iwakela.com
+  external_host: ec2-184-72-19-150.us-west-1.compute.amazonaws.com
+  external_ip: 184.72.19.150
+  instance_id: i-922506d6
+  internal_host: ip-10-170-71-174.us-west-1.compute.internal
+  internal_ip: 10.170.71.174
+  name: production
+  platform: linux
+  roles: 
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: web
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: haproxy
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: app
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: passenger
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: apache
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: db
+    options: 
+      primary: true
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: mysql_master
+    options: {}
+
+  root_device_type: ebs
+  security_groups: 
+  - exview_production_default
+  - exview_production_web
+  - exview_production_production
+  - exview_production_haproxy
+  - exview_production_app
+  - exview_production_passenger
+  - exview_production_apache
+  - exview_production_db
+  - exview_production_mysql_master
+  zone: us-west-1c
+- volumes: {}
+
+  static_ips: {}
+
