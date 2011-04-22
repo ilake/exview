@@ -1,13 +1,15 @@
 common: &default_settings
   access_key_id: AKIAJZLWPTDVMHBLG4EQ
   secret_access_key: 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
-  bucket: exview-images
 
 development:
   <<: *default_settings
+  bucket: exview-development-images
 
 test:
   <<: *default_settings
+  bucket: exview-test-images
 
 production:
   <<: *default_settings
+  bucket: exview-production-images

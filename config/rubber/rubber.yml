@@ -85,10 +85,10 @@ cloud_providers:
     #
     # pk_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/pk-*'].first}"
     # cert_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/cert-*'].first}"
-    image_bucket: "#{app_name}-images"
+    image_bucket: "#{app_name}-#{RUBBER_ENV}-images"
 
     # OPTIONAL: Needed for backing up database to s3
-    backup_bucket: "#{app_name}-backups"
+    backup_bucket: "#{app_name}-#{RUBBER_ENV}-backups"
 
     # REQUIRED: the ami and instance type for creating instances
     # The Ubuntu images at http://alestic.com/ work well
