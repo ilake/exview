@@ -41,6 +41,14 @@ GEM
       builder
       mime-types
       xml-simple
+    aws-ses (0.4.2)
+      builder
+      builder
+      mail (~> 2.2.5)
+      mime-types
+      mime-types
+      xml-simple
+      xml-simple
     builder (2.1.2)
     capistrano (2.5.21)
       highline
@@ -150,6 +158,7 @@ DEPENDENCIES
   annotate-models (>= 1.0.4)
   authlogic
   aws-s3
+  aws-ses (~> 0.4.1)
   capistrano
   delayed_job
   delayed_job_admin

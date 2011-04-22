@@ -46,4 +46,7 @@ Exview::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  #use amazon ses send mail
+  config.action_mailer.delivery_method = :ses
 end
