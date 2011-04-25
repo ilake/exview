@@ -98,7 +98,8 @@ cloud_providers:
     # m1.small or m1.large or m1.xlarge
     # [==MODIFIED==START]
     image_type: t1.micro
-    image_id: 'ami-ebbfefae'
+    image_id: 'ami-f5bfefb0'
+    #image_id: 'ami-ebbfefae'  #us-west-1 32bit
     # [==MODIFIED==END]
     #image_type: m1.small
     #image_id: "#{ %w{m1.small c1.medium}.include?(image_type) ? 'ami-7000f019' : 'ami-fa01f193' }"
@@ -192,7 +193,7 @@ staging_roles: "web,app,db:primary=true"
 #           static IP
 #
 # [==MODIFIED==START]
-#use_static_ip: true
+use_static_ip: true
 #use_static_ip: true
 # [==MODIFIED==END]
 # OPTIONAL: Specifies an instance to be created in the given availability zone
