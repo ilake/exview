@@ -34,7 +34,7 @@
 #== Columns description ==
 # country_name :  the country you are living
 # hometown_country : your hometown country
-# sent_countries : the countries you ever shared photos , This is a pipe-separated list of countries or states 
+# sent_countries : the countries you ever shared photos , This is a pipe-separated list of countries or states
 #== Columns description END ==
 
 class User < ActiveRecord::Base
@@ -46,7 +46,8 @@ class User < ActiveRecord::Base
   scope :same_country, lambda {|country| where("country_name = ?", country)}
   scope :have_quota, where("receive_quota_now > 0")
   scope :not_assigned_or_sent_or_self, lambda{|assigned_sent_ids| where("#{table_name}.id not in (?)", assigned_sent_ids)}
-  scope :login_recently, where("last_login_at is not NULL").order("last_login_at DESC")
+  scope :login_recently, order("last_login_at DESC")
+  scope :is_active, where(:active =>  true)
 
   has_many :sent_photos, :class_name => 'Photo', :foreign_key => 'sender_id'
   has_many :receive_photos, :class_name => 'Photo', :foreign_key => 'receiver_id'
@@ -71,7 +72,7 @@ class User < ActiveRecord::Base
   #Find friend policy
   #(1)receiver have be assigned to sender could not be assigned again
   #(2)receiver have be assigned to another one, even not active, could not assigned, either
-  #(3)[NOTICE] receiver if just ever receive the photos by sender,but dont be assigned ever, dont assigns, either 
+  #(3)[NOTICE] receiver if just ever receive the photos by sender,but dont be assigned ever, dont assigns, either
   #Dont use the role(3) right now, when startup, not too many users
   def find_one_friend
     # if the amount of users be assigned smaller than send quota
@@ -90,11 +91,11 @@ class User < ActiveRecord::Base
       assigned_sent_self_ids = assigned_ids.concat(others_assigned_ids).concat([self.id]).uniq
 
       #Assigned priority foreign country(living) > same_country(but diffrent hometown) > same country(living)
-      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).login_recently.first
+      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).is_active.login_recently.first
                foreign_friend
-             elsif foreign_friend_in_your_country = User.diff_hometown(self.hometown_country_name).same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).login_recently.first
+             elsif foreign_friend_in_your_country = User.diff_hometown(self.hometown_country_name).same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).is_active.login_recently.first
                foreign_friend_in_your_country
-             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).login_recently.first
+             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).is_active.login_recently.first
                same_country_friend
              end
 
@@ -119,7 +120,7 @@ class User < ActiveRecord::Base
 
       #Add the unique receive countries to sent_countries
       receiver_country_name = photo.receiver.country_name
-      if self.sent_countries 
+      if self.sent_countries
         if !self.sent_countries.match(receiver_country_name)
           self.sent_countries = "#{self.sent_countries}|#{receiver_country_name}"
           self.save
