@@ -4,12 +4,12 @@ common: &default_settings
 
 development:
   <<: *default_settings
-  bucket: exview-development-images
+  bucket: outcircle-development-images
 
 test:
   <<: *default_settings
-  bucket: exview-test-images
+  bucket: outcircle-test-images
 
 production:
   <<: *default_settings
-  bucket: exview-production-images
+  bucket: outcircle-production-images
