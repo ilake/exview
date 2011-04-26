@@ -46,6 +46,8 @@ class Comment < ActiveRecord::Base
 
   private
   def deliver_notification
-    Notifier.delay.comment_notification(self.mail_receiver, self)
+    self.mail_receiver.each do |u|
+      Notifier.delay.comment_notification(u, self)
+    end
   end
 end

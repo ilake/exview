@@ -30,9 +30,10 @@ class Notifier < ActionMailer::Base
     mail(:to => named_email(param_receiver), :subject => "Message Notification")
   end
 
-  def comment_notification(users, param_comment)
+  def comment_notification(user, param_comment)
     @comment = param_comment
-    mail(:bcc => users.map{|u| u.email}, :subject => "Comment Notification")
+    mail(:to => named_email(user), :subject => "Comment Notification")
+#    mail(:bcc => users.map{|u| u.email}, :subject => "Comment Notification")
   end
 
   private
