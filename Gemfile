@@ -50,5 +50,5 @@ end
 # end
 gem "mocha", :group => :test
 gem "rubber"
-gem 'aws-s3'
+gem 'aws-s3', :require => 'aws/s3'
 gem "aws-ses", "~> 0.4.1", :require => 'aws/ses'

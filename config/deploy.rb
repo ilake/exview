@@ -71,12 +71,19 @@ Dir["#{File.dirname(__FILE__)}/rubber/deploy-*.rb"].each do |deploy_file|
 end
 
 after "deploy", "deploy:cleanup"
-after "deploy:cold", "deploy:db_seed"
+before "deploy:setup", "deploy:install_default_package"
 after "deploy:setup", "deploy:share_folder_setup"
+after "deploy:setup", "deploy:db_seed"
 after "deploy:update_code", "deploy:upload_settings"
 after "deploy:update_code", "deploy:chown"
 
 namespace :deploy do
+
+  desc "Install default system package"
+  task :install_default_package, :roles => :app  do
+    sudo "apt-get install imagemagick"
+  end
+
   desc "Run rake db:seed on production machine"
   task :db_seed, :roles => :app  do
     run "cd #{current_path}; rake RAILS_ENV=#{rails_env} db:seed"
