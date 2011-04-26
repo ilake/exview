@@ -1,40 +1,41 @@
 <% if @user.blank? %>
-  <h3>No user could be finded for you</h3>
+  <p>No one could be found for you, we need more friends join us, please invite your friends :)</p>
 <% elsif @user == 'tolimit' %>
-  <h3>Sorry 以達你的配額</h3>
+  <p>
+    Sorry, but you are already sending 3 postcards which is the current limit.
+
+    Please share the photo to the user assign to you.
+  </p>
+  <%= link_to "#{@user.name} friends", assigned_user_path(@user) if owner_page?(current_user, @user)%><br />
 <% else %>
+  <h3><%= @user.name %> is a member live in <%= link_to human_country_name(@user.country_name), wikipedia_url(@user.country_name), :target => '_blank'%>, hometown is <%= link_to human_country_name(@user.hometown_country_name), wikipedia_url(@user.hometown_country_name), :target => '_blank'%></h3>
   <ul>
+    <% if owner_page?(current_user, @user) %>
+      <li>
+        <%= link_to "edit profile", edit_user_path(:current) %>
+      </li>
+    <% end %>
     <li>
-      name: 
-      <%= @user.name %>
-    </li>
-    <li>
-      gender: 
+      gender:
       <%= @user.gender %>
     </li>
     <li>
-      speak: 
+      speak:
       <%= @user.speak %>
     </li>
     <li>
-      memo: 
+      memo:
       <%= @user.memo %>
     </li>
-    <li>
-      country: 
-      <%= human_country_name(@user.country_name) %>
-    </li>
-    <li>
-      receive_quota_now: 
-      <%= @user.receive_quota_now %>
-    </li>
   </ul>
-  <%= link_to "#{@user.name} wall", wall_user_path(@user) %>
-  <%= link_to "#{@user.name} assigned users", assigned_user_path(@user) if owner_page?(current_user, @user)%>
+  <%= link_to "#{@user.name} picture wall", wall_user_path(@user) %><br />
+  <%= link_to "#{@user.name} friends", assigned_user_path(@user) if owner_page?(current_user, @user)%><br />
   <% if !owner_page?(current_user, @user) %>
-    <%= link_to "Share Photo with #{@user.name}", new_photo_path(:receiver_id => @user) if current_user.share_photo_permission(@user) %>
+    <%= link_to "Share Photo to #{@user.name}", new_photo_path(:receiver_id => @user) if current_user.share_photo_permission(@user) %>
     <%= link_to "Send Message to #{@user.name}", new_user_message_path(current_user, :to => @user.name) %>
   <% end %>
-  <h3>Friends Countries Map</h3>
-  <%= google_map_chart(@user) %>
+  <h3><%= @user.name%> live in <%= human_country_name(@user.country_name) %></h3>
+  <%= live_google_map_chart(@user) %>
+  <h3><%= @user.name %>'s friends map</h3>
+  <%= friends_google_map_chart(@user) %>
 <% end %>

@@ -15,13 +15,13 @@
   <%= f.inputs "Basic", :id => "basic" do %>
     <%= f.input :gender, :as => :radio, :label => "Gender", :collection => [["Male", "M"], ["Female", "F"]] %>
     <%= f.input :speak, :hint => 'Like English, Chinese blahblah...'  %>
-    <%= f.input :memo, :input_html => { :class => 'autogrow', :rows => 10, :cols => 40, :maxlength => 10  } %>
+    <%= f.input :memo, :label => "About you", :hint => "Write something you are curious, hope others share with you, food, jobs, street view blahblah... or write about yourself, your hobbies and your favourite things.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 40 } %>
     <li id="user_country_name_input" class="text optional">
-      <label for="user_country_name">Living Country Name</label>
+      <label for="user_country_name">Where are you living</label>
       <%= country_select("user", "country_name") %>
     </li>
     <li id="user_hometown_country_name_input" class="text optional">
-      <label for="user_hometown_country_name">Hometown Country Name</label>
+      <label for="user_hometown_country_name">Where is your hometown</label>
       <%= country_select("user", "hometown_country_name") %>
     </li>
   <% end %>

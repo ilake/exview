@@ -1,12 +1,12 @@
 <h2><%= link_to @user.name, @user%></h2>
-<h3>Receive</h3>
+<h3>Received</h3>
 <div>
   <% @receive_photos.each do |photo|%>
     <div>
-      From: <%= link_to photo.sender.name, user_path(photo.sender)  %>
-      <%= link_to photo.comments.size, photo_path(photo) %> comments
       <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
       <%= photo.memo %>
+      from: <%= link_to photo.sender.name, user_path(photo.sender)  %>
+      <%= link_to photo.comments.size, photo_path(photo) %> comments
     </div>
 <% end %>
 </div>
@@ -14,10 +14,10 @@
 <div>
   <% @sent_photos.each do |photo|%>
     <div>
-      To : <%= link_to photo.receiver.name, user_path(photo.receiver)%>
-      <%= link_to photo.comments.size, photo_path(photo) %> comments
       <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
       <%= photo.memo %>
+      To : <%= link_to photo.receiver.name, user_path(photo.receiver)%>
+      <%= link_to photo.comments.size, photo_path(photo) %> comments
     </div>
   <% end %>
 </div>

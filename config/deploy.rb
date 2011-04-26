@@ -15,7 +15,7 @@ if RUBBER_ENV == 'production'
   set :repository, "git@github.com:ilake/exview.git"
   set :scm, "git"
   set :deploy_via, :remote_cache
-  set :branch, 'ec2'
+  set :branch, 'master'
 else
   set :scm, :none
   set :repository, "."

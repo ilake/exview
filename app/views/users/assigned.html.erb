@@ -2,9 +2,12 @@
   <% @assigneds.each do |assign| %>
     <li>
       <%= link_to_user_profile(assign.receiver) %>
-      <%= link_to "Share Photo with #{assign.receiver.name}", new_photo_path(:receiver_id => assign.receiver) %>
-      <%= link_to "Send Message to #{assign.receiver.name}", new_user_message_path(current_user, :to => assign.receiver.name) %>
-      <%= assign.sent_at %>
+      <%= link_to "share photo", new_photo_path(:receiver_id => assign.receiver) %>
+      <% if assign.sent_at %>
+        share photo last time at <%= assign.sent_at %>
+      <% else %>
+         waitting your photo
+      <% end %>
     </li>
   <% end %>
 </ul>

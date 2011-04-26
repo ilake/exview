@@ -4,6 +4,9 @@ class AssignsController < ApplicationController
   def create
     @user = current_user.find_one_friend
 
+    if @user.is_a?(User)
+      flash.now[:notice] = "System assign #{@user.name} to you, you could share a photo to #{@user.name} now"
+    end
     render :template => "users/show"
   end
 
