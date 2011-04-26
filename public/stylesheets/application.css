@@ -1,4 +1,4 @@
-#flash_notice, #flash_success { 
+#flash_notice, #flash_success {
   font-size: 13px;
   background-color: #CFC;
   border: solid 1px #6C6;
@@ -6,7 +6,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight:bold;
-}         
+}
 
 #flash_error, #flash_failure {
   font-size: 13px;
@@ -26,4 +26,22 @@
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #1C85BD;
+  font-family: "Lucida Grande",Helvetica,Arial,sans-serif;
+  font-weight: normal;
+  margin-bottom: 2px;
+  padding: 4px;
+}
+
+h3 {
+  font-size: 1.5em;
+  line-height: 1;
+  margin-bottom: 1em;
+}
+
+#header, #user_nav {
+  margin-bottom: 3em;
 }

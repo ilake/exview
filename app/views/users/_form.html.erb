@@ -11,7 +11,7 @@
     </div>
   <% end %>
   <p>
-    <%= f.label :login %><br />
+    <%= f.label :login, 'Nickname' %><br />
     <%= f.text_field :login %>
   </p>
   <p>
@@ -19,11 +19,11 @@
     <%= f.text_field :email %>
   </p>
   <p>
-      <label for="user_country_name">Living Country Name</label>
+      <label for="user_country_name">You are Living in</label>
       <%= country_select("user", "country_name") %>
   </p>
   <p>
-      <label for="user_country_name">Hometown Country Name</label>
+      <label for="user_country_name">Where is your hometown</label>
       <%= country_select("user", "hometown_country_name") %>
   </p>
   <p>
@@ -34,5 +34,6 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
   </p>
+  <h4>It is not a dating place</h4>
   <p><%= f.submit %></p>
 <% end %>

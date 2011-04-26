@@ -57,6 +57,10 @@ class User < ActiveRecord::Base
 
   before_create :init_user_quota
 
+  def is_owner?(user)
+    @is_owner ||= self == user
+  end
+
   def to_param
     "#{id}-#{login}"
   end
@@ -162,8 +166,8 @@ class User < ActiveRecord::Base
 
   private
   def init_user_quota
-    self.send_quota_max = 3 unless self.send_quota_max
-    self.receive_quota_now = 1 unless self.receive_quota_now
+    self.send_quota_max = APP_CONFIG["send_quota_max"] unless self.send_quota_max
+    self.receive_quota_now = APP_CONFIG["receive_quota_default"] unless self.receive_quota_now
     self.sent_countries = "" unless self.sent_countries
   end
 end

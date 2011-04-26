@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @assigneds = current_user.assigns.unsent.unexpired.includes(:receiver) if current_user.is_owner?(@user)
   end
 
   def new

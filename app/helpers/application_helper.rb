@@ -8,9 +8,6 @@ module ApplicationHelper
     @show_title
   end
 
-  def owner_page?(current_user, user)
-    current_user == user
-  end
 
   def link_to_user_profile(user)
     link_to user.name, user_path(user)
