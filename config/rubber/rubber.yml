@@ -11,7 +11,7 @@
 #     packages: [awstats]
 
 # REQUIRED: The name of your application
-app_name: exview
+app_name: outcircle
 
 # REQUIRED: The system user to run your app servers as
 app_user: www-data
@@ -30,7 +30,7 @@ timezone: US/Pacific
 
 # REQUIRED: the domain all the instances should be associated with
 #
-domain: iwakela.com
+domain: outcircle.com
 
 # OPTIONAL: See rubber-dns.yml for dns configuration
 # This lets rubber update a dynamic dns service with the instance alias
