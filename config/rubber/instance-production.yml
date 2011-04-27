@@ -1,12 +1,12 @@
 --- 
 - !ruby/object:Rubber::Configuration::InstanceItem 
-  domain: iwakela.com
-  external_host: ec2-50-18-120-189.us-west-1.compute.amazonaws.com
-  external_ip: 50.18.120.189
-  instance_id: i-58fad61c
-  internal_host: ip-10-161-91-102.us-west-1.compute.internal
-  internal_ip: 10.161.91.102
-  name: production
+  domain: outcircle.com
+  external_host: ec2-50-18-121-170.us-west-1.compute.amazonaws.com
+  external_ip: 50.18.121.170
+  instance_id: i-740e2130
+  internal_host: ip-10-170-18-135.us-west-1.compute.internal
+  internal_ip: 10.170.18.135
+  name: web01
   platform: linux
   roles: 
   - !ruby/object:Rubber::Configuration::RoleItem 
@@ -39,18 +39,18 @@
 
   root_device_type: ebs
   security_groups: 
-  - exview_production_default
-  - exview_production_web
-  - exview_production_production
-  - exview_production_haproxy
-  - exview_production_app
-  - exview_production_passenger
-  - exview_production_apache
-  - exview_production_db
-  - exview_production_mysql_master
-  static_ip: 50.18.120.189
-  zone: us-west-1a
+  - outcircle_production_default
+  - outcircle_production_web
+  - outcircle_production_web01
+  - outcircle_production_haproxy
+  - outcircle_production_app
+  - outcircle_production_passenger
+  - outcircle_production_apache
+  - outcircle_production_db
+  - outcircle_production_mysql_master
+  static_ip: 50.18.121.170
+  zone: us-west-1c
 - volumes: {}
 
   static_ips: 
-    production: 50.18.120.189
+    web01: 50.18.121.170
