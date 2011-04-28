@@ -71,9 +71,9 @@ Dir["#{File.dirname(__FILE__)}/rubber/deploy-*.rb"].each do |deploy_file|
 end
 
 after "deploy", "deploy:cleanup"
-before "deploy:setup", "deploy:install_default_package"
+#before "deploy:setup", "deploy:install_default_package"
 after "deploy:setup", "deploy:share_folder_setup"
-after "deploy:setup", "deploy:db_seed"
+after "deploy:cold", "deploy:db_seed"
 after "deploy:update_code", "deploy:upload_settings"
 after "deploy:update_code", "deploy:chown"
 
