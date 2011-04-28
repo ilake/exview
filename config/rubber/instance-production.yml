@@ -1,5 +1,56 @@
 --- 
+- !ruby/object:Rubber::Configuration::InstanceItem 
+  domain: outcircle.com
+  external_host: ec2-50-18-121-255.us-west-1.compute.amazonaws.com
+  external_ip: 50.18.121.255
+  instance_id: i-c44d6380
+  internal_host: ip-10-161-110-176.us-west-1.compute.internal
+  internal_ip: 10.161.110.176
+  name: production
+  platform: linux
+  roles: 
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: web
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: haproxy
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: app
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: passenger
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: apache
+    options: {}
+
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: db
+    options: 
+      primary: true
+  - !ruby/object:Rubber::Configuration::RoleItem 
+    name: mysql_master
+    options: {}
+
+  root_device_type: ebs
+  security_groups: 
+  - outcircle_production_default
+  - outcircle_production_web
+  - outcircle_production_production
+  - outcircle_production_haproxy
+  - outcircle_production_app
+  - outcircle_production_passenger
+  - outcircle_production_apache
+  - outcircle_production_db
+  - outcircle_production_mysql_master
+  static_ip: 50.18.121.255
+  zone: us-west-1a
 - volumes: {}
 
-  static_ips: {}
-
+  static_ips: 
+    production: 50.18.121.255
