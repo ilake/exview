@@ -1,11 +1,11 @@
 --- 
 - !ruby/object:Rubber::Configuration::InstanceItem 
   domain: outcircle.com
-  external_host: ec2-50-18-121-255.us-west-1.compute.amazonaws.com
-  external_ip: 50.18.121.255
-  instance_id: i-c44d6380
-  internal_host: ip-10-161-110-176.us-west-1.compute.internal
-  internal_ip: 10.161.110.176
+  external_host: ec2-50-18-121-251.us-west-1.compute.amazonaws.com
+  external_ip: 50.18.121.251
+  instance_id: i-24557b60
+  internal_host: ip-10-166-219-73.us-west-1.compute.internal
+  internal_ip: 10.166.219.73
   name: production
   platform: linux
   roles: 
@@ -48,9 +48,9 @@
   - outcircle_production_apache
   - outcircle_production_db
   - outcircle_production_mysql_master
-  static_ip: 50.18.121.255
+  static_ip: 50.18.121.251
   zone: us-west-1a
 - volumes: {}
 
   static_ips: 
-    production: 50.18.121.255
+    production: 50.18.121.251
