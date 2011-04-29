@@ -48,7 +48,9 @@ set :keep_releases, 3
 # (instance*.yml + rubber*.yml) for a deploy.  This gives us the
 # convenience of not having to checkin files for staging, as well as
 # the safety of forcing it to be checked in for production.
-set :push_instance_config, RUBBER_ENV != 'production'
+#set :push_instance_config, RUBBER_ENV != 'production'
+#create_staging this command RUBBER_ENV is production so, you need to check it, if you still test , just that it true, just push the instance*.yml
+set :push_instance_config, true
 
 # Allows the tasks defined to fail gracefully if there are no hosts for them.
 # Comment out or use "required_task" for default cap behavior of a hard failure
@@ -71,17 +73,21 @@ Dir["#{File.dirname(__FILE__)}/rubber/deploy-*.rb"].each do |deploy_file|
 end
 
 after "deploy", "deploy:cleanup"
-#before "deploy:setup", "deploy:install_default_package"
 after "deploy:setup", "deploy:share_folder_setup"
-after "deploy:cold", "deploy:db_seed"
 after "deploy:update_code", "deploy:upload_settings"
 after "deploy:update_code", "deploy:chown"
 
 namespace :deploy do
 
+  desc "initialize project (just run on the first time , this project install)"
+  task :init_prj do
+    install_default_package
+    db_seed
+  end
+
   desc "Install default system package"
   task :install_default_package, :roles => :app  do
-    sudo "apt-get install imagemagick"
+    sudo "apt-get -y install imagemagick"
   end
 
   desc "Run rake db:seed on production machine"
@@ -103,6 +109,12 @@ namespace :deploy do
     end
   end
 
+  desc "Change the project owner"
+  task :chown, :roles => :app do
+    run "cd #{shared_path} && chown www-data #{shared_path} -R;"
+    run "cd #{latest_release} && chown www-data #{latest_release} -R;"
+  end
+
   desc "Reupload the specific setting file"
   task :reupload_settings, :roles => :app do
     %w(app_config.yml).each do |file|
@@ -111,11 +123,6 @@ namespace :deploy do
     end
   end
 
-  desc "Change the project owner"
-  task :chown, :roles => :app do
-    run "cd #{shared_path} && chown www-data #{shared_path} -R;"
-    run "cd #{latest_release} && chown www-data #{latest_release} -R;"
-  end
 end
 
 
