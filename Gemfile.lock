@@ -155,6 +155,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_commentable
+  amazon-ec2
   annotate-models (>= 1.0.4)
   authlogic
   aws-s3
