@@ -45,3 +45,20 @@ h3 {
 #header, #user_nav {
   margin-bottom: 3em;
 }
+#header a{
+  text-decoration: none;
+}
+
+.pics {
+  height:  232px;
+  padding: 0;
+  margin:  0;
+}
+
+.pics div {
+  padding: 15px;
+  border:  1px solid #ccc;
+  top:  0;
+  left: 0;
+  opacity: 0;
+}

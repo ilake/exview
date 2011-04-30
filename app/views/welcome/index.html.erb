@@ -1,20 +1,37 @@
 <h2><%= APP_CONFIG["default_slogan"]%></h2>
-<h3>What is Outcircle?</h3>
-<p>
-  Here allows you to meet random friend in the world.
-</p>
-
 <h3>
   How does it work?
 </h3>
 <ul>
   <li>
-    Share a photo to a new friend
+    You share a photo and you will receive at least one back
   </li>
   <li>
-    Receive a photo from other friend
+    More you share and more you receive
   </li>
   <li>
     That is it !!
   </li>
 </ul>
+
+<h3>
+  People are sharing
+</h3>
+<div class="pics">
+  <% @photos.each_with_index do |photo, i|%>
+    <div style="opacity: 0">
+      <%= link_to photo.receiver.name, user_path(photo.sender)  %>
+      <span class="country <%= photo.receiver.country_name%>">
+        <img title="" alt=""  src="http://static1.postcrossing.com/images/blank.gif">
+      </span>
+
+      receive a photo from
+      <%= link_to photo.sender.name, user_path(photo.sender)  %>
+      <span class="country <%= photo.sender.country_name%>">
+        <img title="" alt=""  src="http://static1.postcrossing.com/images/blank.gif">
+      </span>
+
+      <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
+    </div>
+  <% end %>
+</div>
