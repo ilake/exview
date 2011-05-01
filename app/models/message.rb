@@ -16,15 +16,16 @@
 #
 
 class Message < ActiveRecord::Base
+  validates_presence_of :subject, :body, :sender_id, :recipient_id
 
   is_private_message
-  
+
   # The :to accessor is used by the scaffolding,
   # uncomment it if using it or you can remove it if not
   attr_accessor :to
 
   after_create :deliver_notification
-  
+
   private
   def deliver_notification
     Notifier.delay.message_notification(self, self.sender, self.recipient)
