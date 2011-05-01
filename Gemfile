@@ -16,6 +16,7 @@ gem "hoptoad_notifier", "~> 2.3"
 
 gem 'ruby-mysql'
 group :development do
+  gem "query_reviewer", :git => "git://github.com/nesquena/query_reviewer.git"
   gem 'ruby-debug19'
   gem 'annotate-models', '>= 1.0.4'
   gem "rails3-generators"
@@ -23,6 +24,12 @@ group :development do
   # Deploy with Capistrano
   gem 'capistrano'
 end
+
+gem "mocha", :group => :test
+gem "rubber"
+gem 'aws-s3', :require => 'aws/s3'
+gem "aws-ses", "~> 0.4.1", :require => 'aws/ses'
+gem "amazon-ec2", :require => "AWS"
 
 #group :production do
 #  gem 'mysql2'
@@ -48,8 +55,3 @@ end
 # group :development, :test do
 #   gem 'webrat'
 # end
-gem "mocha", :group => :test
-gem "rubber"
-gem 'aws-s3', :require => 'aws/s3'
-gem "aws-ses", "~> 0.4.1", :require => 'aws/ses'
-gem "amazon-ec2", :require => "AWS"
