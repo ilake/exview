@@ -22,4 +22,9 @@ class Assign < ActiveRecord::Base
   scope :unsent, where("sent_at is NULL")
   scope :uniq_receiver_ids, select("DISTINCT receiver_id")
 
+  before_create :init_waiting_days
+  private
+  def init_waiting_days
+    self.waiting_days = APP_CONFIG["waiting_days"]
+  end
 end
