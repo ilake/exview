@@ -1,3 +1,36 @@
-<h2>Share a photo to <%= link_to @photo.receiver.name, user_path(@photo.receiver) %></h2>
 
-<%= render 'form' %>
+<div class="float-left">
+  <h2>Share a photo to <%= link_to @photo.receiver.name, user_path(@photo.receiver) %></h2>
+  <%= form_for(@photo, :url => photos_path, :html => { :multipart => true }) do |f| %>
+    <% if @photo.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
+
+        <ul>
+          <% @photo.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <p>
+    <%= f.label :avatar, 'Share anything, food, job, the view outside your window blahblah...', :class => 'warm-color' %>
+    <br />
+    <%= f.file_field :avatar %>
+    </p>
+    <p>
+    <%= f.label :memo, 'Write something about the photo you share', :class => 'warm-color' %><br />
+    <%= f.text_area :memo, :size => '40x6' %>
+    </p>
+    <%= f.hidden_field :receiver_id %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+
+<div class="float-left margin-left-20">
+  <h3>About <%= @photo.receiver.name %></h3>
+  <%= format_content @photo.receiver.memo %>
+</div>
