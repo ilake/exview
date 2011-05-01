@@ -1,7 +1,8 @@
 <p id="notice"><%= notice %></p>
-<h2><%= link_to_user_wall(@photo.sender) %> Wall<h2>
 
-from: <%= link_to_user_profile(@photo.sender)  %>
+<h3>
+  <%= link_to_user_profile(@photo.sender) %>  sent to <%= link_to_user_profile(@photo.receiver) %>
+</h3>
 <%= link_to image_tag(@photo.avatar.url(:medium)),  @photo.avatar.url(:original) %>
 <%= @photo.memo %>
 

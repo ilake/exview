@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @assigneds = current_user.assigns.unsent.unexpired.includes(:receiver) if current_user.is_owner?(@user)
+    @receive_photos = @user.receive_photos.order("created_at DESC").include_receiver
+    @sent_photos = @user.sent_photos.order("created_at DESC").include_sender
   end
 
   def new
@@ -35,12 +37,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def wall
-    @user = User.find(params[:id])
-    @receive_photos = @user.receive_photos.order("created_at DESC").include_receiver
-    @sent_photos = @user.sent_photos.order("created_at DESC").include_sender
-  end
-
   def assigned
     @assigneds = current_user.assigns.includes(:receiver)
   end
@@ -55,5 +51,11 @@ class UsersController < ApplicationController
       end
     end
   end
+
+#  def wall
+#    @user = User.find(params[:id])
+#    @receive_photos = @user.receive_photos.order("created_at DESC").include_receiver
+#    @sent_photos = @user.sent_photos.order("created_at DESC").include_sender
+#  end
 
 end

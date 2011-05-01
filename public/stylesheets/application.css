@@ -45,7 +45,9 @@ h3 {
 #header, #user_nav {
   margin-bottom: 3em;
 }
-#header a{
+
+body a, a:visited, a:hover {
+  color: #1C85BD;
   text-decoration: none;
 }
 
@@ -61,4 +63,35 @@ h3 {
   top:  0;
   left: 0;
   opacity: 0;
+}
+
+
+a.btn {
+  background:none repeat scroll 0 0 #EAEEF1;
+  border:1px solid #D0D8DF;
+  cursor:pointer;
+  font:bold 15px/18px arial,helvetica,sans-serif !important;
+  margin: 14px;
+  padding:2px 7px 2px 7px;
+  overflow:hidden;
+  text-decoration: none;
+}
+
+.inline {
+  display: inline;
+}
+
+.warm-color {
+  color: #FF8000
+}
+
+.float-left {
+  float:left;
+}
+
+.margin-left-20 {
+  margin-left:20px;
+}
+.padding-bottom-5 {
+  padding-bottom:5px;
 }

@@ -1,55 +1,54 @@
-<% if @user.blank? %>
-  <p>No one could be found for you, we need more friends join us, please invite your friends :)</p>
-<% elsif @user == 'tolimit' %>
-  <p>
-    Sorry, but you are already assigned <%= APP_CONFIG['send_quota_max']%> friends which is the current limit.
-
-    Please share the photo to the user assign to you.
-  </p>
-  <%= link_to "Share with your friends", assigned_user_path(current_user) %><br />
-<% else %>
-  <% if current_user.is_owner?(@user) %>
-    <% @assigneds.each do |assign| %>
-      <li>
-        <%= link_to_user_profile(assign.receiver) %>
-        <% if assign.sent_at %>
-          share photo last time at <%= assign.sent_at %>
-        <% else %>
-          waitting your photo
-        <% end %>
-        <%= link_to "share photo", new_photo_path(:receiver_id => assign.receiver) %>
-      </li>
-    <% end %>
-  <% else %>
-    <%= link_to "Share Photo to #{@user.name}", new_photo_path(:receiver_id => @user) if current_user.share_photo_permission(@user) %><br />
-    <%= link_to "Send Message to #{@user.name}", new_user_message_path(current_user, :to => @user.name) %>
+<% if current_user.is_owner?(@user) %>
+  <% @assigneds.each do |assign| %>
+    <li class="padding-bottom-5">
+      <%= region_flag(assign.receiver.country_name) %>
+      <%= link_to_user_profile(assign.receiver) %>
+      <% if assign.sent_at %>
+        share photo last time at <%= assign.sent_at %>
+      <% else %>
+        is waitting your photo
+      <% end %>
+      <%= link_to "share photo", new_photo_path(:receiver_id => assign.receiver), :class => 'btn' %>
+    </li>
   <% end %>
+<% end %>
 
-  <br />
-  <h3><%= @user.name %> is a member live in <%= link_to human_country_name(@user.country_name), wikipedia_url(@user.country_name), :target => '_blank'%>, hometown is <%= link_to human_country_name(@user.hometown_country_name), wikipedia_url(@user.hometown_country_name), :target => '_blank'%></h3>
-  <%= link_to "#{@user.name} picture wall", wall_user_path(@user) %><br />
-  <%= link_to "#{@user.name} friends", assigned_user_path(@user) if current_user.is_owner?(@user)%>
-  <ul>
-    <% if current_user.is_owner?(@user) %>
-      <li>
-        <%= link_to "edit profile", edit_user_path(:current) %>
-      </li>
-    <% end %>
+<br />
+<h3 class="inline"><%= @user.name %> </h3>
+is a member live in <%= link_to_user_live(@user) %><%= region_flag(@user.country_name) %>,
+hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_country_name) %>
+
+<p>
+<%= link_to "Share photo to #{@user.name}", new_photo_path(:receiver_id => @user), :class => 'btn'  if current_user.share_photo_permission(@user) %>
+<%= link_to "Send Message to #{@user.name}", new_user_message_path(current_user, :to => @user.name) %><br />
+<%= link_to "#{@user.name} sent friends", assigned_user_path(@user) if current_user.is_owner?(@user)%>
+</p>
+<ul>
+  <% if current_user.is_owner?(@user) %>
     <li>
-      gender:
-      <%= @user.gender %>
+    <%= link_to "edit profile", edit_user_path(:current) %>
     </li>
-    <li>
-      speak:
-      <%= @user.speak %>
-    </li>
-    <li>
-      memo:
-      <%= @user.memo %>
-    </li>
-  </ul>
+  <% end %>
+  <li>
+  gender: <%= @user.gender %>
+  </li>
+  <li>
+  speak: <%= @user.speak %>
+  </li>
+  <li>
+  memo: <%= @user.memo %>
+  </li>
+</ul>
+
+<div class='float-left'>
   <h3><%= @user.name%> live in <%= human_country_name(@user.country_name) %></h3>
   <%= live_google_map_chart(@user) %>
-  <h3><%= @user.name %>'s friends map</h3>
+  <h3><%= @user.name %>'s view map</h3>
   <%= friends_google_map_chart(@user) %>
-<% end %>
+</div>
+<div class="float-left margin-left-20">
+  <h3>Received photos</h3>
+  <%= render :partial => "photo_wall_cell", :locals => {:photos => @receive_photos, :flow => 'from'}%>
+  <h3>Sent photos</h3>
+  <%= render :partial => "photo_wall_cell", :locals => {:photos => @sent_photos, :flow => 'to'}%>
+</div>

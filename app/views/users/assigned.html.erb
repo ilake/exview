@@ -1,8 +1,9 @@
 <ul>
   <% @assigneds.each do |assign| %>
     <li>
+      <%= region_flag(assign.receiver.country_name) %>
       <%= link_to_user_profile(assign.receiver) %>
-      <%= link_to "share photo", new_photo_path(:receiver_id => assign.receiver) %>
+      <%= link_to "share photo", new_photo_path(:receiver_id => assign.receiver), :class => "btn" %>
       <% if assign.sent_at %>
         share photo last time at <%= assign.sent_at %>
       <% else %>

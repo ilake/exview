@@ -12,11 +12,12 @@
   <% end %>
 
   <p>
-    <%= f.label :avatar, 'Share one photo shot by yourself !!  anything,  dinner, the street view, screen shot blahblah...' %><br />
+  <%= f.label :avatar, 'Share anything, food, job, the view outside your window blahblah...', :class => 'warm-color' %>
+  <br />
     <%= f.file_field :avatar %>
   </p>
   <p>
-    <%= f.label :memo, 'Write something about the photo you share' %><br />
+  <%= f.label :memo, 'Write something about the photo you share', :class => 'warm-color' %><br />
     <%= f.text_area :memo, :size => '40x6' %>
   </p>
   <%= f.hidden_field :receiver_id %>
@@ -24,3 +25,6 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<h3>About <%= @photo.receiver.name %></h3>
+<%= format_content @photo.receiver.memo %>
