@@ -17,21 +17,17 @@
 <h3>
   People are sharing
 </h3>
-<div class="pics">
-  <% @photos.each_with_index do |photo, i|%>
-    <div style="opacity: 0">
-      <%= link_to photo.receiver.name, user_path(photo.sender)  %>
-      <span class="country <%= photo.receiver.country_name%>">
-        <img title="" alt=""  src="http://static1.postcrossing.com/images/blank.gif">
-      </span>
+<marquee behavior="scroll" direction="down" scrollamount="2" height="400">
+<% @photos.each_with_index do |photo, i|%>
+  <div class="padding-bottom-5">
+    <%= link_to_user_profile(photo.receiver) %>
+    <%= region_flag(photo.receiver.country_name) %>
 
-      receive a photo from
-      <%= link_to photo.sender.name, user_path(photo.sender)  %>
-      <span class="country <%= photo.sender.country_name%>">
-        <img title="" alt=""  src="http://static1.postcrossing.com/images/blank.gif">
-      </span>
+    receive a photo from
+    <%= link_to_user_profile(photo.sender) %>
+    <%= region_flag(photo.sender.country_name) %>
 
-      <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
-    </div>
-  <% end %>
-</div>
+    <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
+  </div>
+<% end %>
+</marquee>
