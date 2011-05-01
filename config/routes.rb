@@ -9,7 +9,7 @@ Exview::Application.routes.draw do  resources :photos
   resource :user_session
   resources :users do
     member do
-      get 'wall'
+      #get 'wall'
       get 'assigned'
     end
 
