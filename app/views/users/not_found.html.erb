@@ -1,0 +1,12 @@
+<% if @user.blank? %>
+  <p>No one could be found for you, we need more friends join us, please invite your friends :)</p>
+
+<% else %>
+  <p>
+  Sorry, but you are already assigned <%= APP_CONFIG['send_quota_max']%> friends which is the current limit.
+
+  Please share the photo to the user assign to you.
+  </p>
+  <%= link_to "Share with your friends", assigned_user_path(current_user) %><br />
+<% end %>
+
