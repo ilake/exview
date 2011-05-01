@@ -1,12 +1,33 @@
 <% if @user.blank? %>
-  <p>No one could be found for you, we need more friends join us, please invite your friends :)</p>
+  <p class='warm-color'>
+  No friend could be found for you, we need more friends join us, please invite your friends :)
+  </p>
 
 <% else %>
-  <p>
-  Sorry, but you are already assigned <%= APP_CONFIG['send_quota_max']%> friends which is the current limit.
+  <p class='warm-color'>
+  Sorry, but you are already have <%= APP_CONFIG['send_quota_max']%> quota, which is the current limit.
 
-  Please share the photo to the user assign to you.
+  <br /><br />
+  Please share photos to the users are waiting for you.
   </p>
-  <%= link_to "Share with your friends", assigned_user_path(current_user) %><br />
 <% end %>
 
+<% @assigneds.each do |assign| %>
+  <li class="padding-bottom-5">
+  <%= region_flag(assign.receiver.country_name) %>
+  <%= link_to_user_profile(assign.receiver) %>
+  <% if assign.sent_at %>
+    share photo last time at <%= assign.sent_at %>
+  <% else %>
+    is waitting your photo
+  <% end %>
+  <%= link_to "share photo", new_photo_path(:receiver_id => assign.receiver), :class => 'btn' %>
+  </li>
+<% end %>
+<br /><br />
+<%= twitter_button %>
+<%= facebook_like %>
+<%= facebook_share %>
+<div>
+  <%= facebook_fans_page %>
+</div>

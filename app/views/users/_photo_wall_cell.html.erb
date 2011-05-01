@@ -4,8 +4,12 @@
       <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
       <%= photo.memo %>
       <div>
-        <%= flow %>: <%= link_to photo.sender.name, user_path(photo.sender)  %>
-        <%= link_to photo.comments.size, photo_path(photo) %> comments
+        <% if flow == "to" %>
+          <%= flow %>: <%= link_to photo.receiver.name, user_path(photo.sender)  %>
+        <% else %>
+          <%= flow %>: <%= link_to photo.sender.name, user_path(photo.sender)  %>
+        <% end %>
+        <%= link_to "#{photo.comments.size} comments", photo_path(photo) %>
       </div>
     </div>
     <br />

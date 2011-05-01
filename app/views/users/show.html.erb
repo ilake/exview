@@ -6,7 +6,7 @@
       <% if assign.sent_at %>
         share photo last time at <%= assign.sent_at %>
       <% else %>
-        is waitting your photo
+        is waiting your photo
       <% end %>
       <%= link_to "share photo", new_photo_path(:receiver_id => assign.receiver), :class => 'btn' %>
     </li>
@@ -15,6 +15,7 @@
 
 <br />
 <h3 class="inline"><%= @user.name %> </h3>
+<h4 class="inline"><%= "(This is you)" if current_user.is_owner?(@user)%></h4>
 is a member live in <%= link_to_user_live(@user) %><%= region_flag(@user.country_name) %>,
 hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_country_name) %>
 
@@ -30,14 +31,16 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
     </li>
   <% end %>
   <li>
-  gender: <%= @user.gender %>
+  <strong>gender:</strong>
+  <span class="content-color"><%= @user.gender %></span>
   </li>
   <li>
-  speak: <%= @user.speak %>
+  <strong>speak:</strong>
+  <span class="content-color"><%= @user.speak %></span>
+
   </li>
-  <li>
-  memo: <%= @user.memo %>
-  </li>
+  <h4>About <%= @user.name %></h4>
+  <%= full_format_content(@user.memo).html_safe%>
 </ul>
 
 <div class='float-left'>
@@ -48,7 +51,7 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
 </div>
 <div class="float-left margin-left-20">
   <h3>Received photos</h3>
-  <%= render :partial => "photo_wall_cell", :locals => {:photos => @receive_photos, :flow => 'from'}%>
+  <%= render :partial => "users/photo_wall_cell", :locals => {:photos => @receive_photos, :flow => 'from'}%>
   <h3>Sent photos</h3>
-  <%= render :partial => "photo_wall_cell", :locals => {:photos => @sent_photos, :flow => 'to'}%>
+  <%= render :partial => "users/photo_wall_cell", :locals => {:photos => @sent_photos, :flow => 'to'}%>
 </div>

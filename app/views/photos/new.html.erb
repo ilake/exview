@@ -32,5 +32,5 @@
 
 <div class="float-left margin-left-20">
   <h3>About <%= @photo.receiver.name %></h3>
-  <%= format_content @photo.receiver.memo %>
+  <%= full_format_content(@photo.receiver.memo).html_safe %>
 </div>
