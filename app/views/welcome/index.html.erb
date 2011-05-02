@@ -1,10 +1,24 @@
+<% if current_user %>
+  <p>
+  You could start <%= link_to "Meet New Friend !!", assign_path, :class => 'btn' %> or
+  <%= link_to "Edit your profile", edit_user_path(:current), :class => 'btn' %>
+  </p>
+<% end %>
 <h2><%= APP_CONFIG["default_slogan"]%></h2>
+<h3>
+  What is outcircle for?
+</h3>
+<p>
+Outcircle is a free way to extend our view, <br />
+know the different things, meet the different friends around the world, <br />
+because what we see change who we are. Hope you could join us and enjory it. <%= link_to "Join Us", new_user_path %>
+</p>
 <h3>
   How does it work?
 </h3>
 <ul>
   <li>
-    You share a photo and you will receive at least one back
+    You share a photo to one guy and you will receive at least one back from another friend
   </li>
   <li>
     More you share and more you receive
