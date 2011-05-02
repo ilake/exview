@@ -5,7 +5,7 @@
       <%= photo.memo %>
       <div>
         <% if flow == "to" %>
-          <%= flow %>: <%= link_to photo.receiver.name, user_path(photo.sender)  %>
+          <%= flow %>: <%= link_to photo.receiver.name, user_path(photo.receiver)  %>
         <% else %>
           <%= flow %>: <%= link_to photo.sender.name, user_path(photo.sender)  %>
         <% end %>

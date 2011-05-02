@@ -5,8 +5,8 @@ class AssignsController < ApplicationController
     @user = current_user.find_one_friend
     if @user.is_a?(User)
       flash.now[:notice] = "Meet a new friend [ #{@user.name} ], you could share a photo to #{@user.name} now"
-      @receive_photos = @user.receive_photos.order("created_at DESC").include_receiver
-      @sent_photos = @user.sent_photos.order("created_at DESC").include_sender
+      @receive_photos = @user.receive_photos.order("created_at DESC").include_sender.all
+      @sent_photos = @user.sent_photos.order("created_at DESC").include_receiver.all
 
       render :template => "users/show"
     else
