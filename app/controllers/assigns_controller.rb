@@ -8,6 +8,8 @@ class AssignsController < ApplicationController
       @receive_photos = @user.receive_photos.order("created_at DESC").include_sender.all
       @sent_photos = @user.sent_photos.order("created_at DESC").include_receiver.all
 
+
+      Notifier.delay.assigned_user_notification(current_user, @user)
       render :template => "users/show"
     else
       @assigneds = current_user.assigns.unsent.unexpired.includes(:receiver)

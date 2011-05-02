@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @assigneds = current_user.assigns.unsent.unexpired.includes(:receiver) if current_user.is_owner?(@user)
+    @assigneds = current_user.assigns.unsent.unexpired.includes(:receiver) if @user.is_owner?(current_user)
     @receive_photos = @user.receive_photos.order("created_at DESC").include_sender.all
     @sent_photos = @user.sent_photos.order("created_at DESC").include_receiver.all
   end
