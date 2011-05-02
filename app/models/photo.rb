@@ -26,11 +26,10 @@ class Photo < ActiveRecord::Base
   scope :include_receiver, :include => :receiver
   scope :uniq_receiver_ids, select("DISTINCT receiver_id")
 
-  validates :memo, :presence => true, :length => { :within => 1..10000000 }
+  validates :memo, :presence => true, :length => { :within => 10..10000000 }
 
   has_attached_file :avatar,
-    #:styles => { :thumb => "100x100#", :small  => "400x400>" },
-    :styles => { :medium => "100x>100" },
+    :styles => { :medium => "100x>100", :big => "600x600" },
     :storage => :s3,
     :s3_credentials => "#{Rails.root}/config/s3.yml",
     :path => ":attachment/:id/:style.:extension"
