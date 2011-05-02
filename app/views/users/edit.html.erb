@@ -15,7 +15,7 @@
   <%= f.inputs "Basic", :id => "basic" do %>
     <%= f.input :gender, :as => :radio, :label => "Gender", :collection => [["Male", "M"], ["Female", "F"]] %>
     <%= f.input :speak, :hint => 'Like English, Spanish, Chinese blahblah...', :hint_class => "warm-color inline-hints"  %>
-    <%= f.input :memo, :label => "About you", :hint => "Write something you hope others share to your, or something about yourself, what you are curious, your hobbies and your favourite things.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 40, :hint_class => "warm-color inline-hints" } %>
+    <%= f.input :memo, :label => "About you", :hint => "Write something you hope others share to your, or something about yourself, what you are curious, your hobbies and your favourite things.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 100, :hint_class => "warm-color inline-hints" } %>
     <li id="user_country_name_input" class="text optional">
       <label for="user_country_name">Where are you living</label>
       <%= country_select("user", "country_name") %>
