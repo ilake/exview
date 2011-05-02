@@ -21,8 +21,11 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
 
 <p>
 <%= link_to "Share photo to #{@user.name}", new_photo_path(:receiver_id => @user), :class => 'btn'  if current_user.share_photo_permission(@user) %>
-<%= link_to "Send Message to #{@user.name}", new_user_message_path(current_user, :to => @user.name) %><br />
-<%= link_to "#{@user.name} sent friends", assigned_user_path(@user) if current_user.is_owner?(@user)%>
+<% if current_user.is_owner?(@user) %>
+  <%= link_to "#{@user.name} sent friends", assigned_user_path(@user) %>
+<% else %>
+  <%= link_to "Send Message to #{@user.name}", new_user_message_path(current_user, :to => @user.name) %><br />
+<% end %>
 </p>
 <ul>
   <% if current_user.is_owner?(@user) %>
