@@ -1,44 +1,44 @@
---- 
-- !ruby/object:Rubber::Configuration::InstanceItem 
+---
+- !ruby/object:Rubber::Configuration::InstanceItem
   domain: outcircle.com
   external_host: ec2-50-18-121-251.us-west-1.compute.amazonaws.com
   external_ip: 50.18.121.251
   instance_id: i-24557b60
-  internal_host: ip-10-166-219-73.us-west-1.compute.internal
-  internal_ip: 10.166.219.73
+  internal_host: ip-10-166-218-139.us-west-1.compute.internal
+  internal_ip: 10.166.218.139
   name: production
   platform: linux
-  roles: 
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: web
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: haproxy
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: app
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: passenger
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: apache
     options: {}
 
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: db
-    options: 
+    options:
       primary: true
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: mysql_master
     options: {}
 
   root_device_type: ebs
-  security_groups: 
+  security_groups:
   - outcircle_production_default
   - outcircle_production_web
   - outcircle_production_production
@@ -52,5 +52,5 @@
   zone: us-west-1a
 - volumes: {}
 
-  static_ips: 
+  static_ips:
     production: 50.18.121.251
