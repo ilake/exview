@@ -78,7 +78,7 @@ module ApplicationHelper
   end
 
   def google_analytics_script
-    %{<script type="text/javascript">
+   raw %{<script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-23078976-1']);
   _gaq.push(['_trackPageview']);
