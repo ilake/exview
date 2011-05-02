@@ -1,0 +1,14 @@
+<h4> <%= @account.name %> </h4>
+<p>
+Outcircle introduce a friend for you : <%= @assigned_account.name %>
+<br />
+You could share a photo to <%= link_to "#{@assigned_account.name}", user_url(@assigned_account) %> now
+</p>
+<h4>About <%= @assigned_account.name %></h4>
+<strong>Gender:</strong>
+<p><%= @assigned_account.gender %></p>
+<strong>Speak:</strong>
+<p><%= @assigned_account.speak %></p>
+
+<%= (@assigned_account.memo).html_safe%>
+<p><%= link_to "#{@assigned_account.name} profile", user_url(@assigned_account) %></p>

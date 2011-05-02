@@ -36,6 +36,12 @@ class Notifier < ActionMailer::Base
 #    mail(:bcc => users.map{|u| u.email}, :subject => "Comment Notification")
   end
 
+  def assigned_user_notification(user, assigned_user)
+    @account = user
+    @assigned_account = assigned_user
+    mail(:to => named_email(user), :subject => "Outcircle - introduce a friend for you")
+  end
+
   private
   def named_email(user)
     "#{user.name} <#{user.email}>"
