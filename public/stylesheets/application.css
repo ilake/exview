@@ -1,5 +1,4 @@
 #flash_notice, #flash_success {
-  font-size: 13px;
   background-color: #CFC;
   border: solid 1px #6C6;
   padding: 5px 8px;
@@ -9,7 +8,6 @@
 }
 
 #flash_error, #flash_failure {
-  font-size: 13px;
   background-color: #FCC;
   border: solid 1px #C66;
   padding: 5px 8px;
@@ -19,7 +17,6 @@
 }
 
 #flash_alert {
-  font-size: 13px;
   background-color: #FCC;
   border: solid 1px #C66;
   padding: 5px 8px;
