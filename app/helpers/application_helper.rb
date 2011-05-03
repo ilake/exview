@@ -41,7 +41,7 @@ module ApplicationHelper
   end
 
   def region_flag(region)
-    raw "<span class='country #{region}'> <img title='' alt=''  src='http://static1.postcrossing.com/images/blank.gif'> </span>"
+    raw "<span class='country #{region}'> <img title='' alt=''  src='/images/blank.gif'> </span>"
   end
 
   def facebook_like
