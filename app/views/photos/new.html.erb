@@ -24,6 +24,8 @@
     <%= f.text_area :memo, :size => '40x6' %>
     </p>
     <%= f.hidden_field :receiver_id %>
+    <%= f.hidden_field :from_country_name %>
+    <%= hidden_field_tag "photo[to_country_name]", @photo.receiver.country_name %>
     <div class="actions">
       <%= f.submit %>
     </div>

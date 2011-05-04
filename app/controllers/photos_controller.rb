@@ -27,7 +27,7 @@ class PhotosController < ApplicationController
   # GET /photos/new
   # GET /photos/new.xml
   def new
-    @photo = Photo.new(:receiver_id => params[:receiver_id])
+    @photo = Photo.new(:receiver_id => params[:receiver_id], :from_country_name => current_user.country_name)
 
     respond_to do |format|
       format.html # new.html.erb

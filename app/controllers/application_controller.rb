@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   #helper :all
   helper_method :current_user, :current_user_session
 
+  helper_method :human_country_name
+
+  def human_country_name(country_code)
+    ActionView::Helpers::FormOptionsHelper::COUNTRIES_HASH[country_code]
+  end
+
   private
 
   def current_user_session

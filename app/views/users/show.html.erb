@@ -45,8 +45,13 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
 <div class='float-left'>
   <h3><%= @user.name%> live in <%= link_to_user_live(@user) %></h3>
   <%= live_google_map_chart(@user) %>
-  <h3><%= @user.name %>'s view map</h3>
-  <%= friends_google_map_chart(@user) %>
+  <h3><%= @user.name %>'s sent map</h3>
+  <div id='sent_chart_regions'></div>
+  <%= raw @send_chart_regions.render('sent_chart_regions') %>
+
+  <h3><%= @user.name %>'s receive map</h3>
+  <div id='receive_chart_regions'></div>
+  <%= raw @receive_chart_regions.render('receive_chart_regions') %>
 </div>
 <div class="float-left margin-left-20">
   <h3>Received photos</h3>
@@ -54,3 +59,4 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
   <h3>Sent photos</h3>
   <%= render :partial => "users/photo_wall_cell", :locals => {:photos => @sent_photos, :flow => 'to'}%>
 </div>
+

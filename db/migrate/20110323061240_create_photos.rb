@@ -6,6 +6,7 @@ class CreatePhotos < ActiveRecord::Migration
       t.integer :avatar_file_size
       t.datetime :avatar_updated_at
       t.text :memo
+      t.string :from_country_name, :to_country_name
       t.timestamps
     end
 
