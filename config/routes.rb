@@ -1,5 +1,6 @@
 Exview::Application.routes.draw do  resources :photos
 
+  match 'about' => 'welcome#about', :as => :about
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
   match 'assign' => 'assigns#create', :as => :assign
