@@ -24,6 +24,10 @@ module ApplicationHelper
     image_tag "http://chart.apis.google.com/chart?cht=map:fixed=-60,180,80,179&chs=550x360&chld=#{user.country_name}&chco=dbe1bf|ff0085|ff0085&chf=bg,s,99b3cc"
   end
 
+  def live_google_map(user)
+    raw %{<iframe width="550" height="360" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com.tw/maps?q=#{human_country_name(user.country_name)}&amp;output=embed"></iframe>}
+  end
+
 
   def wikipedia_url(country_code)
     "http://www.wikipedia.org/wiki/#{human_country_name(country_code)}"

@@ -44,7 +44,7 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
 
 <div class='float-left'>
   <h3><%= @user.name%> live in <%= link_to_user_live(@user) %></h3>
-  <%= live_google_map_chart(@user) %>
+  <%= live_google_map(@user) %>
   <h3><%= @user.name %>'s sent map</h3>
   <div id='sent_chart_regions'></div>
   <%= raw @send_chart_regions.render('sent_chart_regions') %>
