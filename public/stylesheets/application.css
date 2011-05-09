@@ -69,7 +69,10 @@ a.btn {
 }
 
 .warm-color {
-  color: #FF8000
+  color: #FF8000;
+}
+.alert-color {
+  color: #FF2400;
 }
 .content-color {
   color: #555555;
