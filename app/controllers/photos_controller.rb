@@ -44,6 +44,8 @@ class PhotosController < ApplicationController
   # POST /photos
   # POST /photos.xml
   def create
+    params[:photo][:avatar].try(:original_filename).try(:force_encoding, 'utf-8')
+
     @photo = current_user.sent_photos.new(params[:photo])
     current_user.check_assign_and_change_quota(@photo)
 

@@ -27,6 +27,7 @@ class Photo < ActiveRecord::Base
   scope :include_receiver, :include => :receiver
   scope :uniq_receiver_ids, select("DISTINCT receiver_id")
 
+  validates :avatar_file_name, :presence => true
   validates :memo, :presence => true, :length => { :within => 10..10000000 }
 
   has_attached_file :avatar,
