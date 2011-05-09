@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.dirname(__FILE__) + '/../../../../config/environment'
 require File.dirname(__FILE__) + '/../lib/professionalnerd/simple_private_messages/has_private_messages_extensions'
 require File.dirname(__FILE__) + '/../lib/professionalnerd/simple_private_messages/private_message_extensions'

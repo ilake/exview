@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class <%= "Create#{plural_camel_case_name}" %> < ActiveRecord::Migration
   def self.up
     create_table :<%= plural_lower_case_name %> do |t|

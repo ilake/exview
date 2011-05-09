@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 ActiveRecord::Schema.define(:version => 2) do
 
   create_table "messages", :force => true do |t|

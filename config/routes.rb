@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Exview::Application.routes.draw do  resources :photos
 
   match 'about' => 'welcome#about', :as => :about

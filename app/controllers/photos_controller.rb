@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PhotosController < ApplicationController
   before_filter :find_photo, :only => [:show, :edit, :update, :destroy]
   # GET /photos

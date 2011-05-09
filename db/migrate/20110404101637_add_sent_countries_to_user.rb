@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddSentCountriesToUser < ActiveRecord::Migration
   def self.up
     add_column :users, :sent_countries, :text, :default => ""

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Notifier < ActionMailer::Base
 
   def password_reset_instructions(user)

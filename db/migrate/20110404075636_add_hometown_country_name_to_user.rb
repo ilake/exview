@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddHometownCountryNameToUser < ActiveRecord::Migration
   def self.up
     add_column :users, :hometown_country_name, :string

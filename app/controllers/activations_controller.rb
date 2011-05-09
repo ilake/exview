@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ActivationsController < ApplicationController
   before_filter :require_no_user
 

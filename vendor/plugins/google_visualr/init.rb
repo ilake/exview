@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.dirname(__FILE__) + '/lib/base_chart'
 require File.dirname(__FILE__) + '/lib/annotated_time_line'
 require File.dirname(__FILE__) + '/lib/area_chart'

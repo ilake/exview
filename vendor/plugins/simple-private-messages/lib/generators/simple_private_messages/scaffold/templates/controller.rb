@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class <%= plural_camel_case_name %>Controller < ApplicationController
   
   before_filter :set_user

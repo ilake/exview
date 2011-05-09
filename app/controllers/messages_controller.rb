@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MessagesController < ApplicationController
   before_filter :require_user
   

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddCommentCounterToPhoto < ActiveRecord::Migration
   def self.up
     add_column :photos, :comments_count, :integer, :default => 0

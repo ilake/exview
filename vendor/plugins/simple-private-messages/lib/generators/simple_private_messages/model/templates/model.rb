@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class <%= singular_camel_case_name %> < ActiveRecord::Base
 
   is_private_message<% unless singular_camel_case_parent == "User" %> :class_name => "<%= "#{singular_camel_case_parent}" %>"<% end %>

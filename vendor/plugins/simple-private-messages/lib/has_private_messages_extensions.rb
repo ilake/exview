@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Professionalnerd #:nodoc:
   module SimplePrivateMessages #:nodoc:
     module HasPrivateMessagesExtensions #:nodoc:

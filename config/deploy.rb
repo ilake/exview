@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # This is a sample Capistrano config file for rubber
 
 set :rails_env, RUBBER_ENV

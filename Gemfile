@@ -23,6 +23,7 @@ group :development do
   gem "nifty-generators"
   # Deploy with Capistrano
   gem 'capistrano'
+  gem "magic_encoding"
 end
 
 gem "mocha", :group => :test

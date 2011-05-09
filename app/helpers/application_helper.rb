@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module ApplicationHelper
   def title(page_title, show_title = true)
     content_for(:title) { h(page_title.to_s) }

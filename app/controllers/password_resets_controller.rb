@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PasswordResetsController < ApplicationController
  # Method from: http://github.com/binarylogic/authlogic_example/blob/master/app/controllers/application_controller.rb
   before_filter :require_no_user

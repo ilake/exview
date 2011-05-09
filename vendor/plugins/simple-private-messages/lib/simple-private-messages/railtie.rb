@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'simple-private-messages'
 require 'rails'
 require 'has_private_messages_extensions'

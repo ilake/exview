@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module GoogleVisualr
 
   # http://code.google.com/apis/visualization/documentation/gallery/gauge.html
