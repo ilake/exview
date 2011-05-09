@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.7'
 gem 'authlogic'
 gem "paperclip", "~> 2.3"
 gem 'jquery-rails', '>= 0.2.6'
