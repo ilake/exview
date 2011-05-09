@@ -55,4 +55,32 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+
+  def user_show_stuff
+    @receive_photos = @user.receive_photos.order("created_at DESC").include_sender.all
+    @sent_photos = @user.sent_photos.order("created_at DESC").include_receiver.all
+
+    receive_countries = @user.receive_photos.group("from_country_name").count
+    @receive_chart_regions = GoogleVisualr::GeoMap.new
+    photo_world_map(@receive_chart_regions, receive_countries)
+
+    sent_countries = @user.sent_photos.group("to_country_name").count
+    @send_chart_regions = GoogleVisualr::GeoMap.new
+    photo_world_map(@send_chart_regions, sent_countries)
+  end
+
+  def photo_world_map(chart_regions, countries)
+    # Regions Example
+    chart_regions.add_column('string'  , 'Country')
+    chart_regions.add_column('number'  , 'Photos')
+    chart_regions.add_rows(countries.size)
+    countries.each_with_index do |kv, index|
+      chart_regions.set_value(index, 0, human_country_name(kv[0]) );
+      chart_regions.set_value(index, 1, kv[1] );
+    end
+    options = { :dataMode => 'regions' }
+    options.each_pair do | key, value |
+      chart_regions.send "#{key}=", value
+    end
+  end
 end
