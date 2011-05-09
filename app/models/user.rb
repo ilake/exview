@@ -170,5 +170,6 @@ class User < ActiveRecord::Base
     self.send_quota_max = APP_CONFIG["send_quota_max"] unless self.send_quota_max
     self.receive_quota_now = APP_CONFIG["receive_quota_default"] unless self.receive_quota_now
     self.sent_countries = "" unless self.sent_countries
+    self.memo = "" unless self.memo
   end
 end
