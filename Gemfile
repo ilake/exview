@@ -1,15 +1,14 @@
 source 'http://rubygems.org'
 source "http://gems.github.com"
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.7'
 gem 'authlogic'
 gem "paperclip", "~> 2.3"
 gem 'jquery-rails', '>= 0.2.6'
 gem 'formtastic', '~> 1.2.3'
 gem 'acts_as_commentable'
 gem 'whenever', :require => false
-#gem 'delayed_job'
-gem "delayed_job", :git => "git://github.com/pda/delayed_job.git"
+gem 'delayed_job'
 gem "mail"
 gem "delayed_job_admin"
 gem "hoptoad_notifier", "~> 2.3"
