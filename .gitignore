@@ -3,6 +3,7 @@ log/
 config/database.yml
 config/app_config.yml
 config/deploy-rubber.rb
+config/deploy-webbynode.rb
 tmp/**/*
 tmp/
 .DS_Store
