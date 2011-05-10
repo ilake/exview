@@ -53,10 +53,12 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
   <div id='receive_chart_regions'></div>
   <%= raw @receive_chart_regions.render('receive_chart_regions') %>
 </div>
-<div class="float-left margin-left-20">
-  <h3>Received photos</h3>
-  <%= render :partial => "users/photo_wall_cell", :locals => {:photos => @receive_photos, :flow => 'from'}%>
-  <h3>Sent photos</h3>
-  <%= render :partial => "users/photo_wall_cell", :locals => {:photos => @sent_photos, :flow => 'to'}%>
-</div>
 
+<% if @user.be_watched_photo_permission(current_user)%>
+  <div class="float-left margin-left-20">
+    <h3>Received photos</h3>
+    <%= render :partial => "users/photo_wall_cell", :locals => {:photos => @receive_photos, :flow => 'from'}%>
+    <h3>Sent photos</h3>
+    <%= render :partial => "users/photo_wall_cell", :locals => {:photos => @sent_photos, :flow => 'to'}%>
+  </div>
+<% end %>

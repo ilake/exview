@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-Exview::Application.routes.draw do  resources :photos
+Exview::Application.routes.draw do
+  resources :photos, :only => [:new, :create, :show]
 
   match 'about' => 'welcome#about', :as => :about
   match 'login' => 'user_sessions#new', :as => :login

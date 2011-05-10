@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
+  before_filter :require_user, :action => :assign
 
   def show
     @user = User.find(params[:id])

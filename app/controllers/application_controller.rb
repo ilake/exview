@@ -23,6 +23,13 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.record
   end
 
+  def require_photo_watch_permission
+    unless @photo.receiver.be_watched_photo_permission(current_user)
+      flash[:notice] = "You are not friend with this photo owner yet, could not watch it"
+      redirect_back_or_default(root_url)
+    end
+  end
+
   def require_user
     unless current_user
       store_location
@@ -58,8 +65,10 @@ class ApplicationController < ActionController::Base
   end
 
   def user_show_stuff
-    @receive_photos = @user.receive_photos.order("created_at DESC").include_sender.all
-    @sent_photos = @user.sent_photos.order("created_at DESC").include_receiver.all
+    if @user.be_watched_photo_permission(current_user)
+      @receive_photos = @user.receive_photos.order("created_at DESC").include_sender.all
+      @sent_photos = @user.sent_photos.order("created_at DESC").include_receiver.all
+    end
 
     receive_countries = @user.receive_photos.group("from_country_name").count
     @receive_chart_regions = GoogleVisualr::GeoMap.new

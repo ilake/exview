@@ -1,16 +1,7 @@
 # -*- encoding : utf-8 -*-
 class PhotosController < ApplicationController
   before_filter :find_photo, :only => [:show, :edit, :update, :destroy]
-  # GET /photos
-  # GET /photos.xml
-  def index
-    @photos = Photo.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @photos }
-    end
-  end
+  before_filter :require_photo_watch_permission, :only => [:show]
 
   # GET /photos/1
   # GET /photos/1.xml
@@ -36,11 +27,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  # GET /photos/1/edit
-  def edit
-    @photo = Photo.find(params[:id])
-  end
-
   # POST /photos
   # POST /photos.xml
   def create
@@ -60,35 +46,52 @@ class PhotosController < ApplicationController
     end
   end
 
-  # PUT /photos/1
-  # PUT /photos/1.xml
-  def update
-    @photo = Photo.find(params[:id])
-
-    respond_to do |format|
-      if @photo.update_attributes(params[:photo])
-        format.html { redirect_to(@photo, :notice => 'Photo was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @photo.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /photos/1
-  # DELETE /photos/1.xml
-  def destroy
-    @photo.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(photos_url) }
-      format.xml  { head :ok }
-    end
-  end
-
   private
   def find_photo
     @photo = Photo.find(params[:id])
   end
 end
+
+#  # GET /photos
+#  # GET /photos.xml
+#  def index
+#    @photos = Photo.all
+#
+#    respond_to do |format|
+#      format.html # index.html.erb
+#      format.xml  { render :xml => @photos }
+#    end
+#  end
+#
+#  # GET /photos/1/edit
+#  def edit
+#    @photo = Photo.find(params[:id])
+#  end
+#
+#  # PUT /photos/1
+#  # PUT /photos/1.xml
+#  def update
+#    @photo = Photo.find(params[:id])
+#
+#    respond_to do |format|
+#      if @photo.update_attributes(params[:photo])
+#        format.html { redirect_to(@photo, :notice => 'Photo was successfully updated.') }
+#        format.xml  { head :ok }
+#      else
+#        format.html { render :action => "edit" }
+#        format.xml  { render :xml => @photo.errors, :status => :unprocessable_entity }
+#      end
+#    end
+#  end
+#
+#  # DELETE /photos/1
+#  # DELETE /photos/1.xml
+#  def destroy
+#    @photo.destroy
+#
+#    respond_to do |format|
+#      format.html { redirect_to(photos_url) }
+#      format.xml  { head :ok }
+#    end
+#  end
+#

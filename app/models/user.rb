@@ -142,6 +142,10 @@ class User < ActiveRecord::Base
     Assign.exists?(["(sender_id = ? AND receiver_id = ?) or (sender_id = ? AND receiver_id = ?)", self.id, receiver.id, receiver.id, self.id ])
   end
 
+  def be_watched_photo_permission(current_user)
+    current_user && (self.is_owner?(current_user) || self.share_photo_permission(current_user))
+  end
+
   def deliver_activation_instructions!
     reset_perishable_token!
     Notifier.activation_instructions(self).deliver
