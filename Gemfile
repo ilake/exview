@@ -8,7 +8,8 @@ gem 'jquery-rails', '>= 0.2.6'
 gem 'formtastic', '~> 1.2.3'
 gem 'acts_as_commentable'
 gem 'whenever', :require => false
-gem 'delayed_job'
+#gem 'delayed_job'
+gem "delayed_job", :git => "git://github.com/pda/delayed_job.git"
 gem "mail"
 gem "delayed_job_admin"
 gem "hoptoad_notifier", "~> 2.3"
