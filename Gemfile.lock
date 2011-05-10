@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/nesquena/query_reviewer.git
-  revision: 9de60e75d18068d40cd3f8439a3de28eb4df5f3b
-  specs:
-    query_reviewer (0.1.2)
-
 GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
@@ -112,6 +106,7 @@ GEM
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
     polyglot (0.3.1)
+    query_reviewer (0.1.2)
     rack (1.2.2)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
@@ -179,7 +174,7 @@ DEPENDENCIES
   mocha
   nifty-generators
   paperclip (~> 2.3)
-  query_reviewer!
+  query_reviewer
   rails (= 3.0.3)
   rails3-generators
   rubber

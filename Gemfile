@@ -18,7 +18,7 @@ gem "hoptoad_notifier", "~> 2.3"
 
 gem 'ruby-mysql'
 group :development do
-  gem "query_reviewer", :git => "git://github.com/nesquena/query_reviewer.git"
+  gem "query_reviewer"#, :git => "git://github.com/nesquena/query_reviewer.git"
   gem 'ruby-debug19'
   gem 'annotate-models', '>= 1.0.4'
   gem "rails3-generators"
