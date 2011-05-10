@@ -1,77 +1,36 @@
-# -*- encoding : utf-8 -*-
-# This is a sample Capistrano config file for rubber
+#----------------------------------------
+#
+#Memo: install rmagick for attachment_fu to resize image
+#sudo apt-get install imagemagick
+#sudo apt-get install libmagick9-dev
+#sudo gem install rmagick
+#http://github.com/dalibor/ubuntu_ror_installation
+#
+#----------------------------------------
+set :application, 'outcircle'
+set :web_domain, 'outcircle.com'
+set :stack, :passenger_nginx
+set :rails_env, 'production'
 
-set :rails_env, RUBBER_ENV
-
-on :load do
-  set :application, rubber_env.app_name
-  set :runner,      rubber_env.app_user
-  set :deploy_to,   "/mnt/#{application}-#{RUBBER_ENV}"
-  set :copy_exclude, [".git/*", ".bundle/*", "log/*"]
-end
-
-ssh_options[:forward_agent] = true
-
-if RUBBER_ENV == 'production'
-  set :repository, "git@github.com:ilake/exview.git"
-  set :scm, "git"
-  set :deploy_via, :remote_cache
-  set :branch, 'master'
-else
-  set :scm, :none
-  set :repository, "."
-  set :deploy_via, :copy
-  set :copy_exclude, [".git/*", "log/*"]
-  set :copy_compression, :zip
-end
-
-
-
-# Use a simple directory tree copy here to make demo easier.
-# You probably want to use your own repository for a real app
-#set :scm, :none
-#set :repository, "."
-#set :deploy_via, :copy
-
-# Easier to do system level config as root - probably should do it through
-# sudo in the future.  We use ssh keys for access, so no passwd needed
 set :user, 'root'
-set :password, nil
+set :hosting, 'webbynode'
+set :deploy_to, "/var/rails/deploy"
+role :web, 'outcircle.com'
+role :app, 'outcircle.com'
+role :db, 'outcircle.com', :primary => true
 
-# Use sudo with user rails for cap deploy:[stop|start|restart]
-# This way exposed services (mongrel) aren't running as a privileged user
-set :use_sudo, true
+default_run_options[:pty] = true
 
-# How many old releases should be kept around when running "cleanup" task
-set :keep_releases, 3
+set :repository,  "git@github.com:ilake/exview.git"
+set :scm, "git"
+set :git_account, 'ilake'
+set :scm_passphrase, "plokmiju" #This is your custom users password
 
-# Lets us work with staging instances without having to checkin config files
-# (instance*.yml + rubber*.yml) for a deploy.  This gives us the
-# convenience of not having to checkin files for staging, as well as
-# the safety of forcing it to be checked in for production.
-#set :push_instance_config, RUBBER_ENV != 'production'
-#create_staging this command RUBBER_ENV is production so, you need to check it, if you still test , just that it true, just push the instance*.yml
-set :push_instance_config, true
-
-# Allows the tasks defined to fail gracefully if there are no hosts for them.
-# Comment out or use "required_task" for default cap behavior of a hard failure
-rubber.allow_optional_tasks(self)
-# Wrap tasks in the deploy namespace that have roles so that we can use FILTER
-# with something like a deploy:cold which tries to run deploy:migrate but can't
-# because we filtered out the :db role
-namespace :deploy do
-  rubber.allow_optional_tasks(self)
-  tasks.values.each do |t|
-    if t.options[:roles]
-      task t.name, t.options, &t.body
-    end
-  end
-end
-
-# load in the deploy scripts installed by vulcanize for each rubber module
-Dir["#{File.dirname(__FILE__)}/rubber/deploy-*.rb"].each do |deploy_file|
-  load deploy_file
-end
+set :branch, "master"
+set :deploy_via, :remote_cache
+set :git_shallow_clone, 1
+set :git_enable_submodules, 1
+set :use_sudo, false
 
 after "deploy", "deploy:cleanup"
 after "deploy:setup", "deploy:share_folder_setup"
@@ -105,7 +64,7 @@ namespace :deploy do
 
   desc "Upload the specific setting file"
   task :upload_settings, :roles => :app do
-    %w(app_config.yml).each do |file|
+    %w(app_config.yml database.yml).each do |file|
       upload_file(file)
     end
   end
@@ -118,10 +77,16 @@ namespace :deploy do
 
   desc "Reupload the specific setting file"
   task :reupload_settings, :roles => :app do
-    %w(app_config.yml).each do |file|
+    %w(app_config.yml database.yml).each do |file|
       sudo "rm #{shared_path}/config/#{file} #{current_release}/config/#{file}"
       upload_file(file)
     end
+  end
+
+  task :restart, :roles => :app do
+    delayed_job::stop
+    run "touch #{current_path}/tmp/restart.txt"
+    delayed_job::start
   end
 
 end
@@ -150,11 +115,19 @@ namespace :delayed_job do
   end
 end
 
+after "deploy:symlink", "whenever:update_crontab"
+namespace :whenever do
+  desc "Update the crontab file"
+  task :update_crontab, :roles => :db do
+    run "cd #{current_path} && bundle exec whenever --update-crontab #{application}"
+  end
+end
+
 def wait_for_process_to_end(process_name)
   run "COUNT=1; until [ $COUNT -eq 0 ]; do COUNT=`ps -ef | grep -v 'ps -ef' | grep -v 'grep' | grep -i '#{process_name}'|wc -l` ; echo 'waiting for #{process_name} to end' ; sleep 2 ; done"
 end
 
 def upload_file(file)
-  system "scp -i #{rubber_env.cloud_providers.aws.key_file} config/#{file} #{user}@#{rails_env}.#{rubber_env.domain}:#{deploy_to}/shared/config/ "
+  system "scp config/#{file} #{user}@#{web_domain}:#{deploy_to}/shared/config/ "
   sudo "ln -s #{shared_path}/config/#{file} #{current_release}/config/#{file}" # create a symlink to curren
 end
