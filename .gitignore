@@ -2,6 +2,7 @@ log/*.log
 log/
 config/database.yml
 config/app_config.yml
+config/deploy-rubber.rb
 tmp/**/*
 tmp/
 .DS_Store
