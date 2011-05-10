@@ -4,8 +4,8 @@
   external_host: ec2-50-18-121-251.us-west-1.compute.amazonaws.com
   external_ip: 50.18.121.251
   instance_id: i-24557b60
-  internal_host: ip-10-166-218-139.us-west-1.compute.internal
-  internal_ip: 10.166.218.139
+  internal_host: ip-10-168-23-96.us-west-1.compute.internal
+  internal_ip: 10.168.23.96
   name: production
   platform: linux
   roles:
