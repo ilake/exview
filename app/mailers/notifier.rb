@@ -3,32 +3,32 @@ class Notifier < ActionMailer::Base
 
   def password_reset_instructions(user)
     @edit_password_reset_url = edit_password_reset_url(user.perishable_token)
-    mail(:to => named_email(user), :subject => "Password Reset Instructions")
+    mail(:to => named_email(user), :subject => "Outcircle - Password Reset Instructions")
   end
 
   #be sent after the user is actived
   def registration_confirmation(user)
     @account = user
-    mail(:to => named_email(user), :subject => "Welcome")
+    mail(:to => named_email(user), :subject => "Outcircle - Welcome")
   end
 
   def activation_instructions(user)
     @account_activation_url = activate_url(user.perishable_token)
-    mail(:to => named_email(user), :subject => "Activation Instructions")
+    mail(:to => named_email(user), :subject => "Outcircle - Activation Instructions")
   end
 
   def photo_notification(param_photo, param_sender, param_receiver)
     @sender = param_sender
     @receiver = param_receiver
     @photo = param_photo
-    mail(:to => named_email(param_receiver), :subject => "Photo Notification")
+    mail(:to => named_email(param_receiver), :subject => "Outcircle - Photo Notification")
   end
 
   def message_notification(param_msg, param_sender, param_receiver)
     @sender = param_sender
     @receiver = param_receiver
     @msg = param_msg
-    mail(:to => named_email(param_receiver), :subject => "Message Notification")
+    mail(:to => named_email(param_receiver), :subject => "Outcircle - Message Notification")
   end
 
   def comment_notification(user, param_comment)
@@ -41,6 +41,12 @@ class Notifier < ActionMailer::Base
     @account = user
     @assigned_account = assigned_user
     mail(:to => named_email(user), :subject => "Outcircle - introduce a friend for you")
+  end
+
+  def assigned_user_expire_remind(sender, receiver)
+    @account = sender
+    @assigned_account = receiver
+    mail(:to => named_email(sender), :subject => "Outcircle - Remind you")
   end
 
   private

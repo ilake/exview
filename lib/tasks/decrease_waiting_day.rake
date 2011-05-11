@@ -4,7 +4,12 @@ namespace :daily do
     Assign.transaction do
       Assign.unexpired.unsent.each do |a|
         Assign.decrement_counter(:waiting_days, a.id)
-        a.destroy if a.waiting_days.zero?
+        if a.waiting_days == 1
+          #send remind email
+          Notifier.delay.assigned_user_expire_remind(a.sender, a.receiver)
+        elsif a.waiting_days.zero?
+          a.destroy
+        end
       end
     end
   end
