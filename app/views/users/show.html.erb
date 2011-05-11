@@ -6,7 +6,7 @@
       <% if assign.sent_at %>
         share photo last time at <%= assign.sent_at %>
       <% else %>
-        is waiting your photo
+        is waiting your photo, expire days is <%= pluralize(assign.waiting_days, 'days') %>
       <% end %>
       <%= link_to "share photo", new_photo_path(:receiver_id => assign.receiver), :class => 'btn' %>
     </li>

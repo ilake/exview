@@ -7,7 +7,7 @@
       <% if assign.sent_at %>
         share photo last time at <%= assign.sent_at %>
       <% else %>
-         waitting your photo
+        waiting your photo, expire days is <%= pluralize(assign.waiting_days, 'days') %>
       <% end %>
     </li>
   <% end %>
