@@ -3,9 +3,9 @@
   domain: outcircle.com
   external_host: ec2-50-18-121-251.us-west-1.compute.amazonaws.com
   external_ip: 50.18.121.251
-  instance_id: i-24557b60
-  internal_host: ip-10-168-23-96.us-west-1.compute.internal
-  internal_ip: 10.168.23.96
+  instance_id: i-a00d3ce4
+  internal_host: ip-10-170-85-83.us-west-1.compute.internal
+  internal_ip: 10.170.85.83
   name: production
   platform: linux
   roles:
@@ -49,7 +49,7 @@
   - outcircle_production_db
   - outcircle_production_mysql_master
   static_ip: 50.18.121.251
-  zone: us-west-1a
+  zone: us-west-1c
 - volumes: {}
 
   static_ips:
