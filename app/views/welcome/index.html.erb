@@ -40,8 +40,6 @@ because what we see change who we are. Hope you could join us and enjoy it. <%= 
     receive a photo from
     <%= link_to_user_profile(photo.sender) %>
     <%= region_flag(photo.sender.country_name) %>
-
-    <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
   </div>
 <% end %>
 </marquee>
