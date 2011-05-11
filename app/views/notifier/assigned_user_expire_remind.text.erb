@@ -1,18 +1,15 @@
-<h4> <%= @account.name %> </h4>
-<p>
+Dear <%= @account.name %>
+
 <%= @assigned_account.name %> is still waiting for you
-<br />
-<br />
+
+
 You could share a photo to <%= link_to "#{@assigned_account.name}", user_url(@assigned_account) %> now,
-</p>
-<p>
+
 or the sharing relationship will expire, you may have no chance to meet each other again.
-</p>
-<h4>About <%= @assigned_account.name %></h4>
-<strong>Speak:</strong>
-<p><%= @assigned_account.speak %></p>
+
+About <%= @assigned_account.name %>
+Speak:
+<%= @assigned_account.speak %>
 
 <%= (@assigned_account.memo).html_safe %>
-<p>
 <%= link_to "#{@assigned_account.name} profile", user_url(@assigned_account) %>
-</p>

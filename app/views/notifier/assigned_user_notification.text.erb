@@ -1,0 +1,12 @@
+Dear <%= @account.name %>
+
+Outcircle introduce a friend for you : <%= @assigned_account.name %>
+
+You could share a photo to <%= link_to "#{@assigned_account.name}", user_url(@assigned_account) %> now
+
+About <%= @assigned_account.name %>
+Speak:
+<%= @assigned_account.speak %>
+
+<%= (@assigned_account.memo).html_safe %>
+<%= link_to "#{@assigned_account.name} profile", user_url(@assigned_account) %>

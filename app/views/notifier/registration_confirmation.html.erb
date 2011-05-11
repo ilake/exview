@@ -1,6 +1,11 @@
-<%= @account.name %>
-
+<p>Dear <%= @account.name %></p>
+<p>
 Thank you for registering us !!
-
-
-<p><%= link_to "Edit profile", edit_user_url(@account) %></p>
+</p>
+<p>
+You could edit your profile first to introduce yourself
+</p>
+<p>
+or writing anything help other friends share what you hope to know
+</p>
+<p><%= link_to "Edit Your Profile", edit_user_url(@account) %></p>
