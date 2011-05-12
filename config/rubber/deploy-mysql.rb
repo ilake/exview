@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 namespace :rubber do
-  
+
   namespace :mysql do
-    
+
     rubber.allow_optional_tasks(self)
-    
+
     after "rubber:create", "rubber:mysql:validate_db_roles"
 
     task :validate_db_roles do
@@ -18,18 +18,18 @@ namespace :rubber do
     end
 
     after "rubber:bootstrap", "rubber:mysql:bootstrap"
-  
-    
+
+
     # Bootstrap the production database config.  Db bootstrap is special - the
     # user could be requiring the rails env inside some of their config
     # templates, which creates a catch 22 situation with the db, so we try and
     # bootstrap the db separate from the rest of the config
     task :bootstrap, :roles => [:mysql_master, :mysql_slave] do
-      
+
       # Conditionaly bootstrap for each node/role only if that node has not
       # been boostrapped for that role before
-      
-      master_instances = rubber_instances.for_role("mysql_master") & rubber_instances.filtered  
+
+      master_instances = rubber_instances.for_role("mysql_master") & rubber_instances.filtered
       master_instances.each do |ic|
         task_name = "_bootstrap_mysql_master_#{ic.full_name}".to_sym()
         task task_name, :hosts => ic.full_name do
@@ -37,7 +37,7 @@ namespace :rubber do
           exists = capture("echo $(ls #{env.db_data_dir}/ 2> /dev/null)")
           if exists.strip.size == 0
             common_bootstrap("mysql_master")
-            
+
             pass = "identified by '#{env.db_pass}'" if env.db_pass
             rubber.sudo_script "create_master_db", <<-ENDSCRIPT
               mysql -u root -e "create database #{env.db_name};"
@@ -50,8 +50,8 @@ namespace :rubber do
         end
         send task_name
       end
-    
-      slave_instances = rubber_instances.for_role("mysql_slave") & rubber_instances.filtered  
+
+      slave_instances = rubber_instances.for_role("mysql_slave") & rubber_instances.filtered
       slave_instances.each do |ic|
         task_name = "_bootstrap_mysql_slave_#{ic.full_name}".to_sym()
         task task_name, :hosts => ic.full_name do
@@ -107,29 +107,29 @@ namespace :rubber do
         end
         send task_name
       end
-      
+
     end
-  
+
     # TODO: Make the setup/update happen just once per host
     def common_bootstrap(role)
       # mysql package install starts mysql, so stop it
       rsudo "service mysql stop" rescue nil
-      
+
       # After everything installed on machines, we need the source tree
       # on hosts in order to run rubber:config for bootstrapping the db
       rubber.update_code_for_bootstrap
-      
+
       # Gen just the conf for the given mysql role
       rubber.run_config(:RUBBER_ENV => RUBBER_ENV, :FILE => "role/#{role}|role/db/", :FORCE => true, :deploy_path => release_path)
 
-      # reconfigure mysql so that it sets up data dir in /mnt with correct files
+      # reconfigure mysql so that it sets up data dir in /opt with correct files
       sudo_script 'reconfigure-mysql', <<-ENDSCRIPT
         server_package=`dpkg -l | grep mysql-server-[0-9] | awk '{print $2}'`
         dpkg-reconfigure --frontend=noninteractive $server_package
       ENDSCRIPT
       sleep 5
     end
-    
+
     before "rubber:munin:custom_install", "rubber:mysql:custom_install_munin"
 
     desc <<-DESC
@@ -150,21 +150,21 @@ namespace :rubber do
     task :start, :roles => [:mysql_master, :mysql_slave] do
       rsudo "service mysql start"
     end
-    
+
     desc <<-DESC
       Stops the mysql daemons
     DESC
     task :stop, :roles => [:mysql_master, :mysql_slave] do
       rsudo "service mysql stop"
     end
-  
+
     desc <<-DESC
       Restarts the mysql daemons
     DESC
     task :restart, :roles => [:mysql_master, :mysql_slave] do
       rsudo "service mysql restart"
     end
-  
+
   end
 
 end

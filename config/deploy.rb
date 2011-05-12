@@ -6,7 +6,7 @@ set :rails_env, RUBBER_ENV
 on :load do
   set :application, rubber_env.app_name
   set :runner,      rubber_env.app_user
-  set :deploy_to,   "/mnt/#{application}-#{RUBBER_ENV}"
+  set :deploy_to,   "/opt/#{application}-#{RUBBER_ENV}"
   set :copy_exclude, [".git/*", ".bundle/*", "log/*"]
 end
 
