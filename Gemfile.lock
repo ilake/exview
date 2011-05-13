@@ -50,6 +50,7 @@ GEM
       mime-types
       xml-simple
       xml-simple
+    babosa (0.3.4)
     builder (2.1.2)
     capistrano (2.6.0)
       highline
@@ -71,6 +72,8 @@ GEM
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
       i18n (~> 0.4)
+    friendly_id (3.2.1.1)
+      babosa (~> 0.3.0)
     highline (1.6.1)
     hoptoad_notifier (2.4.9)
       activesupport
@@ -168,6 +171,7 @@ DEPENDENCIES
   delayed_job
   delayed_job_admin
   formtastic (~> 1.2.3)
+  friendly_id (~> 3.2.1)
   hoptoad_notifier (~> 2.3)
   jquery-rails (>= 0.2.6)
   magic_encoding

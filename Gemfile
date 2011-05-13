@@ -12,6 +12,7 @@ gem 'delayed_job'
 gem "mail"
 gem "delayed_job_admin"
 gem "hoptoad_notifier", "~> 2.3"
+gem "friendly_id", "~> 3.2.1"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

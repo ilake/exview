@@ -41,6 +41,7 @@
 class User < ActiveRecord::Base
   acts_as_authentic
   has_private_messages
+  has_friendly_id :login, :use_slug => true
 
   scope :diff_country, lambda {|country| where("country_name not in (?)", country)}
   scope :diff_hometown, lambda {|country| where("hometown_country_name not in (?)", country)}
@@ -62,9 +63,9 @@ class User < ActiveRecord::Base
     @is_owner ||= self == user
   end
 
-  def to_param
-    "#{id}-#{login}"
-  end
+#  def to_param
+#    "#{id}-#{login}"
+#  end
 
   def name
     login

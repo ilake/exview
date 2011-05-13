@@ -8,6 +8,7 @@ class CreatePhotos < ActiveRecord::Migration
       t.datetime :avatar_updated_at
       t.text :memo
       t.string :from_country_name, :to_country_name
+      t.string :cached_slug
       t.timestamps
     end
 
