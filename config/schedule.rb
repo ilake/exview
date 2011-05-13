@@ -20,6 +20,10 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day do
+every 1.day, :at => '4:00 am'  do
   rake "daily:decrease_waiting_days"
+end
+
+every 1.day, :at => '5:00 am' do
+    rake "-s sitemap:refresh"
 end

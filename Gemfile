@@ -26,6 +26,7 @@ group :development do
   # Deploy with Capistrano
   gem 'capistrano'
   gem "magic_encoding"
+  gem "sitemap_generator"
 end
 
 gem "mocha", :group => :test

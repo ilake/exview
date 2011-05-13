@@ -158,6 +158,13 @@ namespace :whenever do
   end
 end
 
+after "deploy:update_code", "deploy:copy_old_sitemap"
+namespace :deploy do
+  task :copy_old_sitemap do
+    run "if [ -e #{previous_release}/public/sitemap_index.xml.gz ]; then cp #{previous_release}/public/sitemap* #{current_release}/public/; fi"
+  end
+end
+
 def wait_for_process_to_end(process_name)
   run "COUNT=1; until [ $COUNT -eq 0 ]; do COUNT=`ps -ef | grep -v 'ps -ef' | grep -v 'grep' | grep -i '#{process_name}'|wc -l` ; echo 'waiting for #{process_name} to end' ; sleep 2 ; done"
 end
