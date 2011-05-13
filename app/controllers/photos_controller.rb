@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class PhotosController < ApplicationController
   before_filter :find_photo, :only => [:show, :edit, :update, :destroy]
-  before_filter :require_photo_watch_permission, :only => [:show]
+  #Don't filter photo permission
+  #before_filter :require_photo_watch_permission, :only => [:show]
 
   # GET /photos/1
   # GET /photos/1.xml
