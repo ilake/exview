@@ -91,4 +91,56 @@ module ApplicationHelper
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })(); </script>}
   end
+
+  def link_to_text_feedback
+    raw %{
+      <script type="text/javascript">
+      reformal_wdg_domain    = "outcircle";
+      reformal_wdg_mode    = 1;
+      reformal_wdg_title   = "Outcircle";
+      reformal_wdg_ltitle  = "Leave feedback";
+      reformal_wdg_lfont   = "Verdana, Geneva, sans-serif";
+      reformal_wdg_lsize   = "17px";
+      reformal_wdg_color   = "#1c85bd";
+      reformal_wdg_bcolor  = "#516683";
+      reformal_wdg_tcolor  = "#FFFFFF";
+      reformal_wdg_align   = "right";
+      reformal_wdg_waction = 0;
+      reformal_wdg_vcolor  = "#9FCE54";
+      reformal_wdg_cmline  = "#E0E0E0";
+      reformal_wdg_glcolor  = "#105895";
+      reformal_wdg_tbcolor  = "#FFFFFF";
+
+      reformal_wdg_bimage = "http://idea.informer.com/files/images/buttons/8489db229aa0a66ab6b80ebbe0bb26cd.png";
+
+      </script>
+
+      <script type="text/javascript" language="JavaScript" src="http://idea.informer.com/tab6.js?domain=outcircle"></script><noscript><a href="http://outcircle.idea.informer.com">Outcircle feedback </a> <a href="http://idea.informer.com"><img src="http://widget.idea.informer.com/tmpl/images/widget_logo.jpg" /></a></noscript>
+    }
+  end
+
+  def link_to_tab_feedback
+    raw %{<script type="text/javascript">
+    reformal_wdg_domain    = "outcircle";
+    reformal_wdg_mode    = 0;
+    reformal_wdg_title   = "Outcircle";
+    reformal_wdg_ltitle  = "Leave feedback";
+    reformal_wdg_lfont   = "";
+    reformal_wdg_lsize   = "";
+    reformal_wdg_color   = "#1c85bd";
+    reformal_wdg_bcolor  = "#516683";
+    reformal_wdg_tcolor  = "#FFFFFF";
+    reformal_wdg_align   = "right";
+    reformal_wdg_waction = 0;
+    reformal_wdg_vcolor  = "#9FCE54";
+    reformal_wdg_cmline  = "#E0E0E0";
+    reformal_wdg_glcolor  = "#105895";
+    reformal_wdg_tbcolor  = "#FFFFFF";
+
+    reformal_wdg_bimage = "http://idea.informer.com/files/images/buttons/8489db229aa0a66ab6b80ebbe0bb26cd.png";
+
+  </script>
+
+  <script type="text/javascript" language="JavaScript" src="http://idea.informer.com/tab6.js?domain=outcircle"></script><noscript><a href="http://outcircle.idea.informer.com">Outcircle feedback </a> <a href="http://idea.informer.com"><img src="http://widget.idea.informer.com/tmpl/images/widget_logo.jpg" /></a></noscript>}
+  end
 end
