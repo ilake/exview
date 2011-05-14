@@ -1,4 +1,7 @@
-<p id="notice"><%= notice %></p>
+<% set_meta_tags :title => "Photo #{@photo.sender.name} send to #{@photo.receiver.name}" ,
+:description => "#{@photo.memo}",
+:keywords => "Photo, Description"
+%>
 
 <h3>
   <%= link_to_user_profile(@photo.sender) %>  sent to <%= link_to_user_profile(@photo.receiver) %>
