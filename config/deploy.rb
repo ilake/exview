@@ -124,6 +124,14 @@ namespace :deploy do
     end
   end
 
+  desc "Reset database"
+  task :reset_db, :roles => :db do
+    run "cd #{current_path}; rake RAILS_ENV=#{rails_env} db:drop"
+    run "cd #{current_path}; rake RAILS_ENV=#{rails_env} db:create"
+    run "cd #{current_path}; rake RAILS_ENV=#{rails_env} db:migrate"
+    db_seed
+  end
+
 end
 
 
