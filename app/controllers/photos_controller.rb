@@ -20,7 +20,8 @@ class PhotosController < ApplicationController
   # GET /photos/new
   # GET /photos/new.xml
   def new
-    @photo = Photo.new(:receiver_id => params[:receiver_id], :from_country_name => current_user.country_name)
+    @receiver = User.find(params[:receiver_id])
+    @photo = @receiver.receive_photos.new(:from_country_name => current_user.country_name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +42,7 @@ class PhotosController < ApplicationController
         format.html { redirect_to(user_path(@photo.receiver), :notice => 'Photo was successfully created.') }
         format.xml  { render :xml => @photo, :status => :created, :location => @photo }
       else
+        @receiver = @photo.receiver
         format.html { render :action => "new" }
         format.xml  { render :xml => @photo.errors, :status => :unprocessable_entity }
       end

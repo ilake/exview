@@ -1,6 +1,6 @@
 
 <div class="float-left">
-  <h2>Share a photo to <%= link_to @photo.receiver.name, user_path(@photo.receiver) %></h2>
+  <h2>Share a photo to <%= link_to @receiver.name, user_path(@receiver) %></h2>
   <%= semantic_form_for(@photo, :url => photos_path, :html => { :multipart => true }) do |f| %>
     <% if @photo.errors.any? %>
       <div id="error_explanation">
@@ -29,7 +29,7 @@
     </p>
     <%= f.hidden_field :receiver_id %>
     <%= f.hidden_field :from_country_name %>
-    <%= hidden_field_tag "photo[to_country_name]", @photo.receiver.country_name %>
+    <%= hidden_field_tag "photo[to_country_name]", @receiver.country_name %>
     <div class="actions">
       <%= f.submit %>
     </div>
@@ -37,6 +37,6 @@
 </div>
 
 <div class="float-left margin-left-20">
-  <h3>About <%= @photo.receiver.name %></h3>
-  <%= full_format_content(@photo.receiver.memo).html_safe %>
+  <h3>About <%= @receiver.name %></h3>
+  <%= full_format_content(@receiver.memo).html_safe %>
 </div>
