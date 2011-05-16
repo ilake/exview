@@ -25,19 +25,22 @@ is a member live in <%= link_to_user_live(@user) %><%= region_flag(@user.country
 hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_country_name) %>
 
 <p>
-<%= link_to "Share photo to #{@user.name}", new_photo_path(:receiver_id => @user), :class => 'btn'  if current_user && current_user.share_photo_permission(@user) %>
-<% if @user.is_owner?(current_user) %>
-  <%= link_to "#{@user.name} sent friends", assigned_user_path(@user) %>
-<% elsif current_user %>
-  <%= link_to "Send Message to #{@user.name}", new_user_message_path(current_user, :to => @user.name) %><br />
-<% end %>
+<%= link_to "Share photo to #{@user.name}", new_photo_path(:receiver_id => @user), :class => 'btn' if current_user.try(:share_photo_permission, @user) %>
 </p>
 <ul>
   <% if @user.is_owner?(current_user) %>
     <li>
-    <%= link_to "edit profile", edit_user_path(:current) %>
+      <%= link_to "friends you sent", assigned_user_path(current_user) %>
+    </li>
+    <li>
+      <%= link_to "edit profile", edit_user_path(:current) %>
+    </li>
+  <% elsif current_user %>
+    <li>
+      <%= link_to "Send Message to #{@user.name}", new_user_message_path(current_user, :to => @user.name) %>
     </li>
   <% end %>
+
   <li>
   <strong>speak:</strong>
   <span class="content-color"><%= @user.speak %></span>
