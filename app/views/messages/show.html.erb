@@ -5,7 +5,7 @@
 <p><strong>To:</strong> <%= @message.recipient == current_user ? link_to("You", user_path(current_user)) : link_to(h(@message.recipient.login), user_path(current_user)) %></p>
 <p>
   <strong>Message</strong><br />
-  <%=h @message.body %>
+  <%= full_format_content(@message.body.html_safe).html_safe %>
 </p>
 <p>
   <% if @message.recipient == current_user %>

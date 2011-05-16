@@ -68,7 +68,7 @@ module ApplicationHelper
     c = content
     return 'Does not writing anything yet' if c.blank?
 
-    return c.gsub(/\r\n/, "\n").gsub(/\n/) { |e|
+    return c.gsub(/\r\n/, "\n").gsub(/\r/, "\n").gsub(/\n/) { |e|
       "<br />" unless $` =~/<br \/>$/
     }.gsub(HTTP_REGEX) do  |e|
       if $` =~/(href|src)=(?:"|')$/
