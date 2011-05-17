@@ -47,7 +47,7 @@ module ApplicationHelper
   end
 
   def facebook_like
-    raw '<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.outcircle.com%2F&amp;send=true&amp;layout=box_count&amp;width=60&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp => eight=65" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:65px;" allowTransparency="true"></iframe>'
+    raw %{<iframe src="http://www.facebook.com/plugins/like.php?href=#{request.url}&amp;layout=box_count&amp;width=60&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp => eight=65" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:65px;" allowTransparency="true"></iframe>}
   end
 
   def facebook_share
