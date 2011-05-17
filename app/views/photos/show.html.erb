@@ -1,6 +1,12 @@
 <% set_meta_tags :title => "Photo #{@photo.sender.name} send to #{@photo.receiver.name}" ,
-:description => "#{@photo.memo}",
-:keywords => "Photo, Description"
+:description => "#{h @photo.memo}",
+:keywords => "Photo, Description",
+:open_graph => {
+  :title => "#{h(@photo.memo)}",
+  :type  => :album,
+  :url   => request.url,
+  :image => @photo.avatar.url(:original)
+}
 %>
 
 <h3>
