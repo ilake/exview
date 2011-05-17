@@ -23,7 +23,7 @@
 					  <%= link_to "#{h(message.subject)} (unread)", user_message_path(current_user, message) %>
 					<% end %>
 				</td>
-				<td><%= link_to h(message.sender.login), user_path(current_user) %></td>
+				<td><%= link_to h(message.sender.login), user_path(message.sender) %></td>
 		    <td><%=h message.created_at.to_s(:long) %></td>
 			</tr>
 		<% end %>
