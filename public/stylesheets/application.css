@@ -88,3 +88,7 @@ a.btn {
 .padding-bottom-5 {
   padding-bottom:5px;
 }
+
+#photowall {
+  width:500px;
+}
