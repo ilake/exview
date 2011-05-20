@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   scope :have_quota, where("receive_quota_now > 0")
   scope :not_assigned_or_sent_or_self, lambda{|assigned_sent_ids| where("#{table_name}.id not in (?)", assigned_sent_ids)}
   scope :login_recently, order("last_login_at DESC")
+  scope :receive_priority, order("receive_quota_now DESC")
   scope :is_active, where(:active =>  true)
 
   has_many :sent_photos, :class_name => 'Photo', :foreign_key => 'sender_id'
@@ -97,11 +98,11 @@ class User < ActiveRecord::Base
       assigned_sent_self_ids = assigned_ids.concat(others_assigned_ids).concat([self.id]).uniq
 
       #Assigned priority foreign country(living) > same_country(but diffrent hometown) > same country(living)
-      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).is_active.login_recently.first
+      user = if foreign_friend = User.diff_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).is_active.receive_priority.login_recently.first
                foreign_friend
-             elsif foreign_friend_in_your_country = User.diff_hometown(self.hometown_country_name).same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).is_active.login_recently.first
+             elsif foreign_friend_in_your_country = User.diff_hometown(self.hometown_country_name).same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).is_active.receive_priority.login_recently.first
                foreign_friend_in_your_country
-             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).is_active.login_recently.first
+             elsif same_country_friend = User.same_country(self.country_name).have_quota.not_assigned_or_sent_or_self(assigned_sent_self_ids).is_active.receive_priority.login_recently.first
                same_country_friend
              end
 
