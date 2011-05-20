@@ -30,10 +30,11 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
 <ul>
   <% if @user.is_owner?(current_user) %>
     <li>
-      <%= link_to "friends you sent", assigned_user_path(current_user) %>
+      <%= link_to "Friends you sent", assigned_user_path(current_user) %>
     </li>
     <li>
-      <%= link_to "edit profile", edit_user_path(:current) %>
+    <%= link_to "Edit profile", edit_user_path(:current) %>
+    <%= "<span class='alert-color'>Introduce yourself first</span>".html_safe if @user.memo.blank? %>
     </li>
   <% elsif current_user %>
     <li>

@@ -36,15 +36,17 @@ Let our eyes travel around this world. Hope you could join us and enjoy it. <%= 
 <h3>
   People are sharing
 </h3>
-<marquee behavior="scroll" direction="down" scrollamount="2" height="400">
 <% @photos.each_with_index do |photo, i|%>
-  <div class="padding-bottom-5">
-    <%= link_to_user_profile(photo.receiver) %>
-    <%= region_flag(photo.receiver.country_name) %>
-
-    receive a photo from
-    <%= link_to_user_profile(photo.sender) %>
-    <%= region_flag(photo.sender.country_name) %>
+  <div id="photocell" class="padding-bottom-5 float-left">
+    <div id="index-photo-image" >
+      <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
+    </div>
+    <div>
+      <%= link_to_user_profile(photo.sender) %>
+      <%= region_flag(photo.sender.country_name) %>
+      ->
+      <%= link_to_user_profile(photo.receiver) %>
+      <%= region_flag(photo.receiver.country_name) %>
+    </div>
   </div>
 <% end %>
-</marquee>

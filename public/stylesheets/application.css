@@ -92,3 +92,14 @@ a.btn {
 #photowall {
   width:500px;
 }
+
+#photocell {
+  width:300px;
+  height:200px;
+  padding-top:20px;
+  border-bottom:3px solid #EFEFEF;
+}
+
+#index-photo-image {
+  height:160px;
+}
