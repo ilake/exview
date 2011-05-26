@@ -14,7 +14,7 @@ gem "delayed_job_admin"
 gem "hoptoad_notifier", "~> 2.3"
 gem "friendly_id", "~> 3.2.1"
 gem 'meta-tags', :require => 'meta_tags'
-
+gem 'kaminari'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
