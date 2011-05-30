@@ -19,6 +19,18 @@
     <%= f.text_field :email %>
   </p>
   <p>
+    <%= f.label :native_id, 'NativeLanguage'%><br />
+    <%=select_tag 'user[native_ids][1]', options_for_select(Language.select_options) %>
+    <%=select_tag 'user[native_ids][2]', options_for_select(Language.select_options),{ :include_blank => true } %>
+    <%=select_tag 'user[native_ids][3]', options_for_select(Language.select_options),{ :include_blank => true } %>
+  </p>
+  <p>
+    <%= f.label :practice_id, 'NativeLanguage'%><br />
+    <%=select_tag 'user[practice_ids][1]',options_for_select(Language.select_options) %>
+    <%=select_tag 'user[practice_ids][2]',options_for_select(Language.select_options),{:include_blank => true } %>
+    <%=select_tag 'user[practice_ids][3]',options_for_select(Language.select_options),{:include_blank => true } %>
+  </p>
+  <p>
       <label for="user_country_name">You are Living in</label>
       <%= country_select("user", "country_name") %>
   </p>

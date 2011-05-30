@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20110404101637
+# Schema version: 20110526135515
 #
 # Table name: users
 #
@@ -30,8 +30,8 @@
 #  active                :boolean(1)
 #  hometown_country_name :string(255)
 #  sent_countries        :text
+#  cached_slug           :string(255)
 #
-
 #== Columns description ==
 # country_name :  the country you are living
 # hometown_country : your hometown country
@@ -39,6 +39,7 @@
 #== Columns description END ==
 
 class User < ActiveRecord::Base
+  attr_accessor :native_ids, :practice_ids
   acts_as_authentic
   has_private_messages
   has_friendly_id :login, :use_slug => true
@@ -58,15 +59,17 @@ class User < ActiveRecord::Base
   has_many :assigned_receivers, :through => :assigns, :source => :receiver
   has_many :comments
 
+  has_many :language_mappings, :class_name => 'UserLangMapping', :foreign_key => :user_id, :dependent => :destroy
+
+  has_many :native_languages, :through => :language_mappings, :source => :native_language, :uniq => true
+  has_many :practicing_languages, :through => :language_mappings, :source => :practice_language, :uniq => true
+
   before_create :init_user_quota
+  after_create :init_user_lang_mapping
 
   def is_owner?(user)
     @is_owner ||= self == user
   end
-
-#  def to_param
-#    "#{id}-#{login}"
-#  end
 
   def name
     login
@@ -168,6 +171,13 @@ class User < ActiveRecord::Base
     Notifier.password_reset_instructions(self).deliver
   end
 
+  def practice_languages_list
+    practicing_languages.map{|l|l.name}.join('， ')
+  end
+
+  def native_languages_list
+    native_languages.map{|l|l.name}.join('， ')
+  end
   #[TODO]
   #Maybe we could have one way to manual add special assigned user via email or a friend request confirmation
 
@@ -177,5 +187,15 @@ class User < ActiveRecord::Base
     self.receive_quota_now = APP_CONFIG["receive_quota_default"] unless self.receive_quota_now
     self.sent_countries = "" unless self.sent_countries
     self.memo = "" unless self.memo
+  end
+
+  def init_user_lang_mapping
+    practice_ids_array = practice_ids.values.uniq.delete_if{|v|v.blank?}
+    native_ids_array = native_ids.values.uniq.delete_if{|v|v.blank?}
+    native_ids_array.each do |n_id|
+      practice_ids_array.each do |p_id|
+        UserLangMapping.create(:user_id => self.id, :native_id => n_id, :practice_id => p_id)
+      end
+    end
   end
 end

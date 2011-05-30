@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110404101637
+# Schema version: 20110526135515
 #
 # Table name: users
 #
@@ -29,6 +29,7 @@
 #  active                :boolean(1)
 #  hometown_country_name :string(255)
 #  sent_countries        :text
+#  cached_slug           :string(255)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

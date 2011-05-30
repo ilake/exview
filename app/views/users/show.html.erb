@@ -43,9 +43,12 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
   <% end %>
 
   <li>
+  <strong>Native Speaking:</strong>
+  <span class="content-color"><%= @user.native_languages_list %></span>
+  </li>
+  <li>
   <strong>speak:</strong>
-  <span class="content-color"><%= @user.speak %></span>
-
+  <span class="content-color"><%= @user.practice_languages_list %></span>
   </li>
   <h4>About <%= @user.name %></h4>
   <%= full_format_content(@user.memo).html_safe%>
