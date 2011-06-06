@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source "http://gems.github.com"
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.7'
 gem 'authlogic'
 gem "paperclip", "~> 2.3"
 gem 'jquery-rails', '>= 0.2.6'
@@ -18,7 +18,8 @@ gem 'kaminari'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'ruby-mysql'
+#gem 'ruby-mysql'
+gem 'mysql2', '0.2.7'
 group :development do
   gem "query_reviewer"#, :git => "git://github.com/nesquena/query_reviewer.git"
   gem 'ruby-debug19'
