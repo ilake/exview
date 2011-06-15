@@ -1,6 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20110328031404
+# Schema version: 20110526135515
 #
 # Table name: photos
 #
@@ -15,8 +14,14 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  comments_count      :integer(4)      default(0)
+#  country_name        :string(255)
+#  from_country_name   :string(255)
+#  to_country_name     :string(255)
+#  public              :boolean(1)
+#  cached_slug         :string(255)
 #
 
+# -*- encoding : utf-8 -*-
 class Photo < ActiveRecord::Base
   acts_as_commentable
   has_friendly_id :memo, :use_slug => true

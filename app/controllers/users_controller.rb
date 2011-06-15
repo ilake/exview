@@ -2,6 +2,10 @@
 class UsersController < ApplicationController
   before_filter :require_user, :only => [:assign, :edit, :update]
 
+  def index
+    @users = User.login_recently.page params[:page]
+  end
+
   def show
     @user = User.find(params[:id])
     @assigneds = current_user.assigns.unsent.unexpired.includes(:receiver) if @user.is_owner?(current_user)
