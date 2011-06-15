@@ -154,6 +154,7 @@ GEM
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
       ruby-debug-base19 (>= 0.11.19)
+    ruby-hmac (0.4.0)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     sitemap_generator (1.5.2)
@@ -197,5 +198,6 @@ DEPENDENCIES
   rails3-generators
   rubber
   ruby-debug19
+  ruby-hmac
   sitemap_generator
   whenever

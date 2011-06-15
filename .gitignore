@@ -19,3 +19,4 @@ db/schema.rb
 tags
 *.swp
 .livereload
+config/facebooker.yml

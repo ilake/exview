@@ -1,8 +1,10 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
+  include Facebooker2::Rails::Controller
   protect_from_forgery
 
   #helper :all
+  before_filter :set_p3p_header_for_third_party_cookies
   helper_method :current_user, :current_user_session
 
   helper_method :human_country_name
