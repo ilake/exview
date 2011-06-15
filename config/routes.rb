@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 Exview::Application.routes.draw do
+  match "/oauth/create", :to => "oauth#create", :via => "get", :as => "oauth_callback"
+
   resources :photos, :only => [:new, :create, :show]
 
   match 'about' => 'welcome#about', :as => :about

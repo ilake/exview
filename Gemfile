@@ -15,6 +15,9 @@ gem "hoptoad_notifier", "~> 2.3"
 gem "friendly_id", "~> 3.2.1"
 gem 'meta-tags', :require => 'meta_tags'
 gem 'kaminari'
+
+# http://stackoverflow.com/questions/3692970/install-mogli-gem-on-rails-3
+gem 'mogli'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
