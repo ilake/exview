@@ -104,7 +104,6 @@ GEM
       httparty (>= 0.4.3)
     mumboe-soap4r (1.5.8.3)
       httpclient (>= 2.1.1)
-    mysql2 (0.3.2)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -155,6 +154,7 @@ GEM
       linecache19 (>= 0.5.11)
       ruby-debug-base19 (>= 0.11.19)
     ruby-hmac (0.4.0)
+    ruby-mysql (2.9.4)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     sitemap_generator (1.5.2)
@@ -190,7 +190,6 @@ DEPENDENCIES
   meta-tags
   mocha
   mogli
-  mysql2 (= 0.3.2)
   nifty-generators
   paperclip (~> 2.3)
   query_reviewer
@@ -200,5 +199,6 @@ DEPENDENCIES
   rubber
   ruby-debug19
   ruby-hmac
+  ruby-mysql
   sitemap_generator
   whenever
