@@ -3,22 +3,6 @@
 :keywords => "Profile, #{@user.name}"
 %>
 
-<% if @user.is_owner?(current_user) %>
-  <% @assigneds.each do |assign| %>
-    <li class="padding-bottom-5">
-      <%= region_flag(assign.receiver.country_name) %>
-      <%= link_to_user_profile(assign.receiver) %>
-      <% if assign.sent_at %>
-        share photo last time at <%= assign.sent_at %>
-      <% else %>
-        is waiting your photo, expire days is <%= pluralize(assign.waiting_days, 'days') %>
-      <% end %>
-      <%= link_to "share photo", new_photo_path(:receiver_id => assign.receiver), :class => 'btn' %>
-    </li>
-  <% end %>
-<% end %>
-
-<br />
 <h3 class="inline"><%= @user.name %> </h3>
 <h4 class="inline"><%= "(This is you)" if @user.is_owner?(current_user)%></h4>
 is a member live in <%= link_to_user_live(@user) %><%= region_flag(@user.country_name) %>,
