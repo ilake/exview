@@ -12,19 +12,15 @@
     <%= link_to raw("<h1>(: Outcircle :)</h1>"), root_url %>
   </div>
   <div id="user_nav">
-    <% if current_user %>
-      <%= current_user.name %>
-      <%= link_to "Meet New Friend !!", assign_path %> |
-      <%= link_to "My Profile", user_path(current_user) %> |
-
-      <%= link_to "MessageBox", user_messages_path(:current) %> |
-      <%= link_to "Logout", logout_path %> |
-      <%= link_to "About", about_path %>
+    <%= fb_connect_async_js %>
+    <% if current_facebook_user %>
+      <%= link_to_user_profile(current_user) %>
+      <%= link_to_user_image_fb_profile(current_user) %>
+      <%= link_to "Meet New Friend !!", users_path %> |
     <% else %>
-      <%= link_to "Join Us", new_user_path %> |
-      <%= link_to "Login", login_path %> |
-      <%= link_to "About", about_path %>
+      <%= fb_login_and_redirect(root_url, :perms => 'email,user_birthday,user_online_presence') %>
     <% end %>
+    <%= link_to "About", about_path %>
   </div>
   <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, :id => "flash_#{name}" %>

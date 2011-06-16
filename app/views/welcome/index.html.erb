@@ -3,50 +3,9 @@
   :keywords => "Outcircle, friends, photos, cluture, around, view, countries, world, foreigner"
 %>
 
-<% if current_user %>
-  <p>
-  You could start <%= link_to "Meet New Friend !!", assign_path, :class => 'btn' %> or
-  <%= link_to "Edit your profile", edit_user_path(:current), :class => 'btn' %>
-  </p>
-<% end %>
-<h2><%= APP_CONFIG["default_slogan"]%></h2>
 <h3>
   What is outcircle for?
 </h3>
 <p>
-Outcircle is a free way to make friends all over the world,<br />
-extend our view, know the different things, what we see change who we are<br />
-Let our eyes travel around this world. Hope you could join us and enjoy it. <%= link_to "Join Us", new_user_path %>
+Outcircle is a place for <strong>language exchange</strong> and <strong>make friends all over the world</strong>.
 </p>
-<h3>
-  How does it work?
-</h3>
-<ul>
-  <li>
-    You share a photo to one guy and you will receive at least one back from another friend
-  </li>
-  <li>
-    More you share and more you receive
-  </li>
-  <li>
-    That is it !!
-  </li>
-</ul>
-
-<h3>
-  People are sharing
-</h3>
-<% @photos.each_with_index do |photo, i|%>
-  <div id="photocell" class="padding-bottom-5 float-left">
-    <div id="index-photo-image" >
-      <%= link_to image_tag(photo.avatar.url(:medium)),  photo_path(photo) %>
-    </div>
-    <div>
-      <%= link_to_user_profile(photo.sender) %>
-      <%= region_flag(photo.sender.country_name) %>
-      ->
-      <%= link_to_user_profile(photo.receiver) %>
-      <%= region_flag(photo.receiver.country_name) %>
-    </div>
-  </div>
-<% end %>

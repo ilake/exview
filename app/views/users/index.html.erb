@@ -1,7 +1,36 @@
+<%= form_tag url_for(:action => 'index'), :method => :get do %>
+  Search Some guys who <br />
+  <%= label_tag 'Speak' %>
+  <%= select_tag 'native_id',options_for_select(Language.select_options),{ :include_blank => true }  %>
+  <%= label_tag 'Practice'%>
+  <%= select_tag 'practice_id',options_for_select(Language.select_options),{ :include_blank => true }  %>
 
-<% @users.each do |u| %>
-  <div>
-    <%= u.name %>
-  </div>
+  <%= submit_tag 'Search', :name => nil %>
 <% end %>
+
+<table id='ranks-list'>
+  <thead>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>Speak</th>
+    <th>Practice</th>
+  </thead>
+  <tbody>
+  <% @users.each_with_index do |user| %>
+    <tr class="<%= cycle('even', 'odd') %>">
+      <td>
+        <%= link_to_user_image_fb_profile(user) %>
+      </td>
+      <td>
+        <%= region_flag(user.hometown_country_name) %>
+        <%= link_to_user_profile(user) %>
+      </td>
+      <td><%= user.memo %></td>
+      <td><%= user.native_languages_list %></td>
+      <td><%= user.practice_languages_list %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 <%= paginate @users %>

@@ -16,6 +16,8 @@ Exview::Application.routes.draw do
     member do
       #get 'wall'
       get 'assigned'
+      get 'edit_lang'
+      get 'edit_profile'
     end
 
     collection do

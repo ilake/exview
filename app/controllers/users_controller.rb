@@ -3,13 +3,20 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:assign, :edit, :update]
 
   def index
-    @users = User.login_recently.page params[:page]
+    if params[:native_id].present? || params[:practice_id].present?
+      @user = User.joins(:language_mappings).order("created_at DESC")
+      @user = @user.where('user_lang_mappings.native_id' => params[:native_id]) if params[:native_id].present?
+      @user = @user.where('user_lang_mappings.practice_id' => params[:practice_id]) if params[:practice_id].present?
+      @users = @user.page(params[:page])
+    else
+      @users = User.order("created_at DESC").page(params[:page])
+    end
   end
 
   def show
     @user = User.find(params[:id])
-    @assigneds = current_user.assigns.unsent.unexpired.includes(:receiver) if @user.is_owner?(current_user)
-    user_show_stuff
+    #@assigneds = current_user.assigns.unsent.unexpired.includes(:receiver) if @user.is_owner?(current_user)
+    #user_show_stuff
   end
 
   def new
@@ -31,6 +38,8 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
   end
+  alias_method :edit_lang, :edit
+  alias_method :edit_profile, :edit
 
   def update
     @user = current_user

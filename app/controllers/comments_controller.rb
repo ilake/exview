@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class CommentsController < ApplicationController
   before_filter :require_user
-  
+
   def create
     comment = current_user.comments.new(params[:comment])
     if comment.save
@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
       redirect_to :back
     end
   end
-  
+
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy

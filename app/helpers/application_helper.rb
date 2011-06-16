@@ -9,13 +9,20 @@ module ApplicationHelper
     @show_title
   end
 
-
   def link_to_user_profile(user)
     link_to user.name, user_path(user)
   end
 
   def link_to_user_wall(user)
     link_to user.name, wall_user_path(user)
+  end
+
+  def link_to_user_fb_profile(text, user)
+    link_to text, "http://www.facebook.com/profile.php?id=#{user.facebook_id}", :target => '_blank'
+  end
+
+  def link_to_user_image_fb_profile(user)
+    link_to image_tag(user.facebook_image), "http://www.facebook.com/profile.php?id=#{user.facebook_id}", :target => '_blank' if user.facebook_image
   end
 
   def friends_google_map_chart(user)

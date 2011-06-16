@@ -1,42 +1,41 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20110526135515
+# Schema version: 20110616043146
 #
 # Table name: users
 #
-#  id                    :integer(4)      not null, primary key
-#  login                 :string(255)     not null
-#  email                 :string(255)     not null
-#  gender                :string(255)
-#  speak                 :string(255)
-#  memo                  :text
-#  crypted_password      :string(255)     not null
-#  password_salt         :string(255)     not null
-#  persistence_token     :string(255)     not null
-#  single_access_token   :string(255)     not null
-#  perishable_token      :string(255)     not null
-#  login_count           :integer(4)      default(0), not null
-#  failed_login_count    :integer(4)      default(0), not null
-#  last_request_at       :datetime
-#  current_login_at      :datetime
-#  last_login_at         :datetime
-#  current_login_ip      :string(255)
-#  last_login_ip         :string(255)
-#  created_at            :datetime
-#  updated_at            :datetime
-#  country_name          :string(255)
-#  send_quota_max        :integer(4)
-#  receive_quota_now     :integer(4)
-#  active                :boolean(1)
-#  hometown_country_name :string(255)
-#  sent_countries        :text
-#  cached_slug           :string(255)
+#  id                      :integer(4)      not null, primary key
+#  login                   :string(255)     not null
+#  email                   :string(255)     not null
+#  gender                  :string(255)
+#  speak                   :string(255)
+#  memo                    :text
+#  crypted_password        :string(255)     not null
+#  password_salt           :string(255)     not null
+#  persistence_token       :string(255)     not null
+#  single_access_token     :string(255)     not null
+#  perishable_token        :string(255)     not null
+#  login_count             :integer(4)      default(0), not null
+#  failed_login_count      :integer(4)      default(0), not null
+#  last_request_at         :datetime
+#  current_login_at        :datetime
+#  last_login_at           :datetime
+#  current_login_ip        :string(255)
+#  last_login_ip           :string(255)
+#  created_at              :datetime
+#  updated_at              :datetime
+#  country_name            :string(255)
+#  send_quota_max          :integer(4)
+#  receive_quota_now       :integer(4)
+#  active                  :boolean(1)
+#  hometown_country_name   :string(255)
+#  sent_countries          :text
+#  cached_slug             :string(255)
+#  facebook_id             :string(255)
+#  facebook_image          :string(255)
+#  practice_languages_list :string(255)
+#  native_languages_list   :string(255)
 #
-#== Columns description ==
-# country_name :  the country you are living
-# hometown_country : your hometown country
-# sent_countries : the countries you ever shared photos , This is a pipe-separated list of countries or states
-#== Columns description END ==
 
 class User < ActiveRecord::Base
   attr_accessor :native_ids, :practice_ids
@@ -65,7 +64,7 @@ class User < ActiveRecord::Base
   has_many :practicing_languages, :through => :language_mappings, :source => :practice_language, :uniq => true
 
   before_create :init_user_quota
-  after_create :init_user_lang_mapping
+  after_update :init_user_lang_mapping
 
   def is_owner?(user)
     @is_owner ||= self == user
@@ -171,11 +170,11 @@ class User < ActiveRecord::Base
     Notifier.password_reset_instructions(self).deliver
   end
 
-  def practice_languages_list
+  def practice_languages_string
     practicing_languages.map{|l|l.name}.join('， ')
   end
 
-  def native_languages_list
+  def native_languages_string
     native_languages.map{|l|l.name}.join('， ')
   end
   #[TODO]
@@ -190,12 +189,24 @@ class User < ActiveRecord::Base
   end
 
   def init_user_lang_mapping
-    practice_ids_array = practice_ids.values.uniq.delete_if{|v|v.blank?}
-    native_ids_array = native_ids.values.uniq.delete_if{|v|v.blank?}
-    native_ids_array.each do |n_id|
-      practice_ids_array.each do |p_id|
-        UserLangMapping.create(:user_id => self.id, :native_id => n_id, :practice_id => p_id)
+    if self.native_ids.present? || self.practice_ids.present?
+      #User have language_mappings data
+      practice_ids_array = practice_ids.values.uniq.delete_if{|v|v.blank?}
+      native_ids_array = native_ids.values.uniq.delete_if{|v|v.blank?}
+
+      original_language_mappings = self.language_mappings.map{|u| [u.native_id, u.practice_id]}.flatten.uniq!
+      new_language_mappings = native_ids_array + practice_ids_array
+      new_language_mappings.uniq!
+
+      if original_language_mappings != new_language_mappings
+        UserLangMapping.delete_all(:user_id => self.id)
+        native_ids_array.each do |n_id|
+          practice_ids_array.each do |p_id|
+            UserLangMapping.create(:user_id => self.id, :native_id => n_id, :practice_id => p_id)
+          end
+        end
       end
+      User.update_all({:practice_languages_list => practice_languages_string, :native_languages_list => native_languages_string}, :id => self.id)
     end
   end
 end
