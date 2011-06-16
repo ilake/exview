@@ -24,7 +24,6 @@ gem 'mogli'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'ruby-mysql'
-gem 'mysql2', "~> 0.2.7"
 group :development do
   gem "query_reviewer"#, :git => "git://github.com/nesquena/query_reviewer.git"
   gem 'ruby-debug19'
@@ -37,15 +36,15 @@ group :development do
   gem "sitemap_generator"
 end
 
+#gem 'mysql2', "~> 0.2.7", :group => :development
+gem 'mysql2', "0.3.2", :group => :production
+
 gem "mocha", :group => :test
 gem "rubber"
 gem 'aws-s3', :require => 'aws/s3'
 gem "aws-ses", "~> 0.4.1", :require => 'aws/ses'
 gem "amazon-ec2", :require => "AWS"
 
-#group :production do
-#  gem 'mysql2'
-#end
 
 # Use unicorn as the web server
 # gem 'unicorn'
