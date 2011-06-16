@@ -105,7 +105,7 @@ namespace :deploy do
 
   desc "Upload the specific setting file"
   task :upload_settings, :roles => :app do
-    %w(app_config.yml).each do |file|
+    %w(app_config.yml facebooker.yml).each do |file|
       upload_file(file)
     end
   end
@@ -118,7 +118,7 @@ namespace :deploy do
 
   desc "Reupload the specific setting file"
   task :reupload_settings, :roles => :app do
-    %w(app_config.yml).each do |file|
+    %w(app_config.yml facebooker.yml).each do |file|
       sudo "rm #{shared_path}/config/#{file} #{current_release}/config/#{file}"
       upload_file(file)
     end
