@@ -8,9 +8,6 @@
 is a member live in <%= link_to_user_live(@user) %><%= region_flag(@user.country_name) %>,
 hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_country_name) %>
 
-<p>
-<%= link_to "Share photo to #{@user.name}", new_photo_path(:receiver_id => @user), :class => 'btn' if current_user.try(:share_photo_permission, @user) %>
-</p>
 <ul>
   <% if !@user.is_owner?(current_user) && current_user %>
     <li>
@@ -21,7 +18,7 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
   <li>
   <strong>Native Speaking:</strong>
   <span class="content-color"><%= @user.native_languages_list %></span>
-  <%= link_to 'Edit', edit_lang_user_path(:current) %>
+  <%= link_to 'Edit', edit_lang_user_path(:current) if @user.is_owner?(current_user)%>
   </li>
   <li>
   <strong>speak:</strong>
@@ -29,7 +26,7 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
   </li>
   <li>
   <strong>Profile:</strong>
-  <%= link_to 'Edit Profile', edit_profile_user_path(:current) %>
+  <%= link_to 'Edit Profile', edit_profile_user_path(:current) if @user.is_owner?(current_user) %>
   </li>
   <% if @user.is_owner?(current_user) %>
     <%= "<li><span class='alert-color'>Introduce yourself first</span></li>".html_safe if @user.memo.blank? %>
