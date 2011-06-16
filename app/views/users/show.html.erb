@@ -16,12 +16,12 @@ hometown is <%= link_to_user_hometown(@user) %><%= region_flag(@user.hometown_co
   <% end %>
 
   <li>
-  <strong>Native Speaking:</strong>
+  <strong>Speak:</strong>
   <span class="content-color"><%= @user.native_languages_list %></span>
   <%= link_to 'Edit', edit_lang_user_path(:current) if @user.is_owner?(current_user)%>
   </li>
   <li>
-  <strong>speak:</strong>
+  <strong>Practice:</strong>
   <span class="content-color"><%= @user.practice_languages_list %></span>
   </li>
   <li>
