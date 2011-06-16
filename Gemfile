@@ -24,7 +24,7 @@ gem 'mogli'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'ruby-mysql'
-gem 'mysql2', '0.2.7'
+gem 'mysql2', "~> 0.2.7"
 group :development do
   gem "query_reviewer"#, :git => "git://github.com/nesquena/query_reviewer.git"
   gem 'ruby-debug19'

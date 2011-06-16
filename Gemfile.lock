@@ -190,7 +190,7 @@ DEPENDENCIES
   meta-tags
   mocha
   mogli
-  mysql2 (= 0.2.7)
+  mysql2 (~> 0.2.7)
   nifty-generators
   paperclip (~> 2.3)
   query_reviewer
