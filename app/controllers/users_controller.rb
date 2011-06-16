@@ -7,9 +7,9 @@ class UsersController < ApplicationController
       @user = User.joins(:language_mappings).order("created_at DESC")
       @user = @user.where('user_lang_mappings.native_id' => params[:native_id]) if params[:native_id].present?
       @user = @user.where('user_lang_mappings.practice_id' => params[:practice_id]) if params[:practice_id].present?
-      @users = @user.page(params[:page])
+      @users = @user.fb_user.page(params[:page])
     else
-      @users = User.order("created_at DESC").page(params[:page])
+      @users = User.fb_user.order("created_at DESC").page(params[:page])
     end
   end
 

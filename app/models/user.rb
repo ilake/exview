@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   scope :login_recently, order("last_login_at DESC")
   scope :receive_priority, order("receive_quota_now DESC")
   scope :is_active, where(:active =>  true)
+  scope :fb_user, where("facebook_id is NOT NULL")
 
   has_many :sent_photos, :class_name => 'Photo', :foreign_key => 'sender_id'
   has_many :receive_photos, :class_name => 'Photo', :foreign_key => 'receiver_id'
